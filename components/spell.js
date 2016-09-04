@@ -28,23 +28,24 @@ class Spell extends React.Component {
 
   render() {
     return (
-      <div>
-        <p>Name: {this.props.name}</p>
-        <p>Desc: {this.props.desc}</p>
-        <p>Range: {this.props.range}</p>
-        <p>Components: {this.props.components}</p>
-        <p>Material: {this.props.material}</p>
-        <p>Ritual: {this.props.ritual}</p>
-        <p>Duration: {this.props.duration}</p>
-        <p>Concentration: {this.props.concentration}</p>
-        <p>Casting time: {this.props.casting_time}</p>
-        <p>Level: {this.props.level}</p>
-        <p>School: {this.props.school}</p>
-        <p>Class: {this.props.klass}</p>
+      <div className='panel panel-primary'>
+        <div className='panel-heading'>{this.props.name}</div>
+        <div className='panel-body'>
+          <p>Desc: {this.props.desc}</p>
+          <p>Range: {this.props.range}</p>
+          <p>Components: {this.props.components}</p>
+          <p>Material: {this.props.material}</p>
+          <p>Ritual: {this.props.ritual}</p>
+          <p>Duration: {this.props.duration}</p>
+          <p>Concentration: {this.props.concentration}</p>
+          <p>Casting time: {this.props.casting_time}</p>
+          <p>Level: {this.props.level}</p>
+          <p>School: {this.props.school}</p>
+          <p>Class: {this.props.klass}</p>
+        </div>
       </div>
     );
   }
 }
 
 module.exports = Spell;
-

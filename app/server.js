@@ -6,6 +6,7 @@ const React = require('react');
 const ReactDOMServer = require('react-dom/server');
 const Spell = require('../components/spell');
 const SpellsList = require('../components/spells_list');
+const TitleSubtitleComponent = require('../components/title_subtitle_component');
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
@@ -13,7 +14,6 @@ const path = require('path');
 const SPELLS_FILE = path.join(__dirname, '../json/spells.json');
 
 const app = express();
-app.use(express.static('public'));
 
 app.get('/', function(req, res) {
   fs.readFile(SPELLS_FILE, function(err, data) {
@@ -22,10 +22,18 @@ app.get('/', function(req, res) {
       process.exit(1);
     }
     const spells = JSON.parse(data);
-    const reactHtml = ReactDOMServer.renderToString(
+    const spellsList = ReactDOMServer.renderToString(
       <SpellsList spells={spells} />
     );
-    res.render('index.ejs', {reactOutput: reactHtml});
+    const spellJumbotron = ReactDOMServer.renderToString(
+      <TitleSubtitleComponent 
+       title='DnD Spells' 
+       subtitle='Enjoy learning about all the different spells!' />
+    );
+    res.render('index.ejs', {
+      spellJumbotron: spellJumbotron,
+      spellsList: spellsList,
+    });
   });
 });
 
@@ -39,4 +47,3 @@ const server = app.listen(8081, function () {
     console.log("Sever listening at http://%s:%s", host, port);
   }
 });
-
