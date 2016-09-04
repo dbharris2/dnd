@@ -4,8 +4,8 @@
 
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
-const Spell = require('../components/spell');
-const SpellsList = require('../components/spells_list');
+const SpellComponent = require('../components/spell_component');
+const SpellsListComponent = require('../components/spells_list_component');
 const TitleSubtitleComponent = require('../components/title_subtitle_component');
 const express = require('express');
 const fs = require('fs');
@@ -23,7 +23,7 @@ app.get('/', function(req, res) {
     }
     const spells = JSON.parse(data);
     const spellsList = ReactDOMServer.renderToString(
-      <SpellsList spells={spells} />
+      <SpellsListComponent spells={spells} />
     );
     const spellJumbotron = ReactDOMServer.renderToString(
       <TitleSubtitleComponent 
