@@ -13,7 +13,6 @@ const path = require('path');
 const SPELLS_FILE = path.join(__dirname, '../json/spells.json');
 
 const app = express();
-app.use(express.static('public'));
 
 app.get('/', function(req, res) {
   fs.readFile(SPELLS_FILE, function(err, data) {
@@ -39,4 +38,3 @@ const server = app.listen(8081, function () {
     console.log("Sever listening at http://%s:%s", host, port);
   }
 });
-
