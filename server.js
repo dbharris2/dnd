@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var fs = require('fs');
 var path = require('path');
 
+var MONSTERS_FILE = path.join(__dirname, 'json/monsters.json');
 var SPELLS_FILE = path.join(__dirname, 'json/spells.json');
 
 var app = express();
@@ -14,6 +15,15 @@ app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 'no-cache');
   next();
+});
+app.get('/api/monsters', function(req, res) {
+  fs.readFile(MONSTERS_FILE, function(err, data) {
+    if (err) {
+      console.error(err);
+      process.exit(1);
+    }
+    res.json(JSON.parse(data));
+  });
 });
 app.get('/api/spells', function(req, res) {
   fs.readFile(SPELLS_FILE, function(err, data) {
