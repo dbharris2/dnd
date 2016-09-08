@@ -1,8 +1,13 @@
 var React = require('react');
 var Griddle = require('griddle-react');
 
-var MonstersGrid = React.createClass({
-  loadMonstersFromServer: function() {
+class MonstersGrid extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {monsters: []};
+  }
+
+  loadMonstersFromServer() {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -14,14 +19,13 @@ var MonstersGrid = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
-  },
-  getInitialState: function() {
-    return {monsters: []};
-  },
-  componentDidMount: function() {
+  }
+
+  componentDidMount() {
     this.loadMonstersFromServer();
-  },
-  render: function() {
+  }
+
+  render() {
     return (
       <Griddle
         results={this.state.monsters}

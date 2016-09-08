@@ -1,8 +1,13 @@
 var React = require('react');
-var Griddle = require('griddle-react')
+var Griddle = require('griddle-react');
 
-var SpellsGrid = React.createClass({
-  loadSpellsFromServer: function() {
+class SpellsGrid extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {spells: []};
+  }
+
+  loadSpellsFromServer() {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -14,14 +19,13 @@ var SpellsGrid = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
-  },
-  getInitialState: function() {
-    return {spells: []};
-  },
-  componentDidMount: function() {
+  }
+
+  componentDidMount() {
     this.loadSpellsFromServer();
-  },
-  render: function() {
+  }
+
+  render() {
     return (
       <Griddle
         results={this.state.spells}
@@ -34,6 +38,6 @@ var SpellsGrid = React.createClass({
         resultsPerPage={30} />
     );
   }
-});
+};
 
 module.exports = SpellsGrid;
