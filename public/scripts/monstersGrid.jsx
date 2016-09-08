@@ -48,7 +48,8 @@ class MonstersGrid extends React.Component {
         columns={["name", "size", "type", "alignment"]}
         showSettings={true}
         showFilter={true}
-        resultsPerPage={30} />
+        resultsPerPage={30}
+        filterPlaceholderText='Search Monsters...' />
     );
   }
 };

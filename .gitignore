@@ -6,3 +6,7 @@ node_modules
 
 # Bundles
 public/bin
+
+# DS_Store
+*.DS_Store
+

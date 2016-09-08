@@ -48,7 +48,8 @@ class SpellsGrid extends React.Component {
         columns={["name", "range", "components", "school"]}
         showSettings={true}
         showFilter={true}
-        resultsPerPage={30} />
+        resultsPerPage={30}
+        filterPlaceholderText='Search Spells...' />
     );
   }
 };
