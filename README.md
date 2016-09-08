@@ -8,3 +8,5 @@
 npm run dev
 npm start
 ```
+### What else?
+This project uses [Facebook's Flow](https://flowtype.org) package.  To check flow, simply use `npm run flow`.
