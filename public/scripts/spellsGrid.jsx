@@ -1,8 +1,21 @@
-var React = require('react');
-var Griddle = require('griddle-react');
+/* @flow */
+
+const React = require('react');
+const Griddle = require('griddle-react');
+const $ = require('jquery');
+
+type SpellsGridProps = {
+  url: string,
+};
 
 class SpellsGrid extends React.Component {
-  constructor(props) {
+  props: SpellsGridProps;
+
+  state: {
+    spells: [],
+  }
+
+  constructor(props: SpellsGridProps) {
     super(props);
     this.state = {spells: []};
   }

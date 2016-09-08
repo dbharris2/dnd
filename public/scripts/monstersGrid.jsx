@@ -1,8 +1,21 @@
-var React = require('react');
-var Griddle = require('griddle-react');
+/* @flow */
+
+const React = require('react');
+const Griddle = require('griddle-react');
+const $ = require('jquery');
+
+type MonstersGridProps = {
+  url: string,
+};
 
 class MonstersGrid extends React.Component {
-  constructor(props) {
+  props: MonstersGridProps;
+
+  state: {
+    monsters: [],
+  };
+
+  constructor(props: MonstersGridProps) {
     super(props);
     this.state = {monsters: []};
   }
@@ -38,6 +51,6 @@ class MonstersGrid extends React.Component {
         resultsPerPage={30} />
     );
   }
-});
+};
 
 module.exports = MonstersGrid;
