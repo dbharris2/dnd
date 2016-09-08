@@ -5,7 +5,9 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node_modules/webpack/bin/webpack.js -p",
+    "dev": "node_modules/webpack/bin/webpack.js --watch"
   },
   "author": "Devon Harris",
   "license": "ISC",
@@ -13,9 +15,15 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "griddle-react": "^0.6.1",
-    "react": "^15.3.1"
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "webpack": "^1.13.2"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/dbharris2/dnd"
