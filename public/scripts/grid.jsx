@@ -8,6 +8,7 @@ type GridProps = {
   columns: Array<string>,
   dataType: string,
   dataUrl: string,
+  onRowClick: (gridRow: Object, event: Object) => void,
   placeholderText: string,
 };
 
@@ -52,7 +53,8 @@ export default class Grid extends React.Component {
         showSettings={true}
         showFilter={true}
         resultsPerPage={30}
-        filterPlaceholderText={this.props.placeholderText} />
+        filterPlaceholderText={this.props.placeholderText}
+        onRowClick={this.props.onRowClick} />
     );
   }
 };
