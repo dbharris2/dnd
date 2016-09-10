@@ -8,7 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node_modules/webpack/bin/webpack.js -p",
     "dev": "node_modules/webpack/bin/webpack.js --watch",
-    "flow": "node_modules/flow-bin/cli.js"
+    "flow": "node_modules/flow-bin/cli.js",
+    "postinstall": "node_modules/webpack/bin/webpack.js -p"
   },
   "author": "Devon Harris",
   "license": "ISC",
