@@ -1,6 +1,6 @@
 /* @flow */
 
-const React = require('react');
+const React: any = require('react');
 const Modal = require('react-modal');
 
 import Grid from './grid.jsx';
@@ -16,7 +16,7 @@ export default class DNDContainer extends React.Component {
     selectedSpell: ?Object,
   }
 
-  constructor(props: DNDContainerProps) {
+  constructor(props: DNDContainerProps): void {
     super(props);
     this.state = {
       isModalOpen: false,
@@ -24,21 +24,21 @@ export default class DNDContainer extends React.Component {
     };
   }
 
-  closeModal() {
+  closeModal(): void {
     this.setState({isModalOpen: false});
   }
 
-  onSpellsRowClick(gridRow: Object, event: Object) {
+  onSpellsRowClick(gridRow: Object, event: Object): void {
     this.setState({
       isModalOpen: true,
       selectedSpell: gridRow.props.data,
     });
   }
 
-  monstersGrid() {
+  monstersGrid(): React$Element<{}> {
     return (
       <div key='/api/monsters'>
-        <Grid 
+        <Grid
           columns={["name", "size", "type", "alignment"]}
           dataType='json'
           dataUrl='/api/monsters'
@@ -46,13 +46,13 @@ export default class DNDContainer extends React.Component {
           onRowClick={this.closeModal.bind(this)} />
         <br />
       </div>
-    ); 
+    );
   }
 
-  spellsGrid() {
+  spellsGrid(): React$Element<{}> {
     return (
       <div key='/api/spells'>
-        <Grid 
+        <Grid
           columns={["name", "range", "components", "school"]}
           dataType='json'
           dataUrl='/api/spells'
@@ -61,10 +61,10 @@ export default class DNDContainer extends React.Component {
           onRowClick={this.onSpellsRowClick.bind(this)} />
         <br />
       </div>
-    ); 
+    );
   }
 
-  grid(gridType: string) {
+  grid(gridType: string): ?React$Element<{}> {
     if (gridType === 'monsters') {
       return this.monstersGrid();
     } else if (gridType === 'spells') {
@@ -74,7 +74,7 @@ export default class DNDContainer extends React.Component {
     }
   }
 
-  render() {
+  render(): React$Element<{}> {
     const customStyles = {
       content : {
         top                   : '50%',
@@ -89,12 +89,12 @@ export default class DNDContainer extends React.Component {
 
     return (
       <div>
-        <List 
+        <List
           items={['monsters', 'spells']}
           componentBlock={this.grid.bind(this)} />
 
         {
-          this.state.isModalOpen && this.state.selectedSpell != null ? 
+          this.state.isModalOpen && this.state.selectedSpell != null ?
           <Modal
             isOpen={this.state.isModalOpen}
             onRequestClose={this.closeModal.bind(this)}
@@ -105,8 +105,8 @@ export default class DNDContainer extends React.Component {
               {this.state.selectedSpell.desc}
             </div>
             <br />
-            <button 
-              type="button" 
+            <button
+              type="button"
               className="btn btn-primary"
               onClick={this.closeModal.bind(this)}>
               Got it!

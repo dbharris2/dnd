@@ -1,6 +1,6 @@
 /* @flow */
 
-const React = require('react');
+const React: any = require('react');
 
 type ListProps = {
   items: React.PropTypes.array.isRequired,
@@ -12,11 +12,11 @@ export default class List extends React.Component {
 
   state: {}
 
-  constructor(props: ListProps) {
+  constructor(props: ListProps): void {
     super(props);
   }
 
-  render() {
+  render(): React$Element<{}> {
     const componentBlock = this.props.componentBlock;
     const items = this.props.items.map(function(item) {
       return componentBlock(item);

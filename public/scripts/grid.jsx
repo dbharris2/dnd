@@ -1,7 +1,7 @@
 /* @flow */
 
 const $ = require('jquery');
-const React = require('react');
+const React: any = require('react');
 const Griddle = require('griddle-react');
 
 type GridProps = {
@@ -19,26 +19,26 @@ export default class Grid extends React.Component {
     data: [],
   }
 
-  constructor(props: GridProps) {
+  constructor(props: GridProps): void {
     super(props);
     this.state = {data: []};
   }
 
-  loadData() {
+  loadData(): void {
     $.ajax({
       url: this.props.dataUrl,
       dataType: this.props.dataType,
       cache: true,
-      success: function(data) {
+      success: function(data): void {
         this.setState({data: data});
       }.bind(this),
-      error: function(xhr, status, err) {
+      error: function(xhr, status, err): void {
         console.error(this.props.dataUrl, status, err.toString());
       }.bind(this)
     });
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     this.loadData();
   }
 
