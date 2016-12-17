@@ -3,6 +3,66 @@
 const $ = require('jquery');
 const React: any = require('react');
 
+function levelsDeepToString(levelsDeep: number): string {
+  var ret: string = '';
+  for (var i: number = 0; i < levelsDeep; i++) {
+    ret += '-';
+  }
+  return ret;
+}
+
+function renderEntryWithLevelsDeep(
+  title: string,
+  description: string,
+  levelsDeep: number,
+) {
+  return (
+    <div>
+      <b>{levelsDeepToString(levelsDeep)} {title}</b>: {description}
+    </div>
+  );
+}
+
+function renderEntry(title: string, description: string) {
+  return renderEntryWithLevelsDeep(title, description, 0);
+}
+
+function renderArrayWithTitle(array: array, title: string) {
+  return(
+    <div key={title}>
+      {renderEntry(title, array.join(', '))}
+    </div>
+  );
+}
+
+function renderDictionaryWithTitleAndLevelsDeep(dictionary: Object, title: ?string, levelsDeep: number) {
+  return(
+    <div>
+      {title != null ? <b>{title}:</b> : <div></div>}
+      {
+        Object.keys(dictionary).map(function(key: string) {
+          const value = dictionary[key];
+          if (value.attributes != null) {
+            return renderDictionaryWithTitleAndLevelsDeep(value.attributes, key, levelsDeep+1);
+          } else if (Array.isArray(value)) {
+            return renderArrayWithTitle(value, key);
+          } else {
+            return renderEntryWithLevelsDeep(key, value, levelsDeep);
+          }
+        })
+      }
+    </div>
+  );
+}
+
+function renderDictionaryWithTitle(dictionary: Object, title: ?string) {
+  return renderDictionaryWithTitleAndLevelsDeep(dictionary, title, 0);
+}
+
+function renderDictionary(dictionary: Object) {
+  return renderDictionaryWithTitle(dictionary, null)
+}
+
 type CharacterProps = {
   dataType: string,
   dataUrl: string,
@@ -12,22 +72,36 @@ export default class Character extends React.Component {
   props: CharacterProps;
 
   state: {
-    armorClass: '',
-    class: '',
-    hitDice: '',
+    armorClass: string,
+    class: string,
+    equipment: {},
+    hitDice: string,
     languages: [],
-    level: '',
-    maxHP: '',
-    name: '',
-    proficiency: '',
-    race: '',
+    level: string,
+    maxHP: string,
+    name: string,
+    proficiency: string,
+    race: string,
     senses: [],
-    speed: '',
+    speed: string,
   }
 
   constructor(props: CharacterProps): void {
     super(props);
-    this.state = {data: []};
+    this.state = {
+      armorClass: '',
+      class: '',
+      equipment: {},
+      hitDice: '',
+      languages: [],
+      level: '',
+      maxHP: '',
+      name: '',
+      proficiency: '',
+      race: '',
+      senses: [],
+      speed: '',
+    };
   }
 
   loadData(): void {
@@ -39,6 +113,7 @@ export default class Character extends React.Component {
         this.setState({
           armorClass: data.armorClass,
           class: data.class,
+          equipment: data.equipment,
           hitDice: data.hitDice,
           languages: data.languages,
           level: data.level,
@@ -60,37 +135,46 @@ export default class Character extends React.Component {
     this.loadData();
   }
 
-  renderArray(title: string, array: Object) {
-    return(
-      <div>
-        {title + ': ' + array.join(', ')}
-      </div>
-    );
-  }
-
   render() {
-    return (
-      <div>
-        <div>Name: {this.state.name}</div>
-        <div>Race: {this.state.race}</div>
-        <div>Class: {this.state.class}</div>
-        <div>Proficiency: {this.state.proficiency}</div>
-        <div>Level: {this.state.level}</div>
-        <div>Armor Class: {this.state.armorClass}</div>
-        <div>Max HP: {this.state.maxHP}</div>
-        <div>Hit Dice: {this.state.hitDice}</div>
-        <div>Speed: {this.state.speed}</div>
-        {
-          this.state.senses != null ?
-            this.renderArray('Senses', this.state.senses) :
-            <div></div>
-        }
-        {
-          this.state.languages != null ?
-            this.renderArray('Languages', this.state.languages) :
-            <div></div>
-        }
-      </div>
-    );
+    if (this.state.name != null) {
+      return (
+        <div>
+          <h3>General</h3>
+          {renderEntry('Name', this.state.name)}
+          {renderEntry('Race', this.state.race)}
+          {renderEntry('Class', this.state.class)}
+          <br />
+
+          {renderEntry('Proficiency', this.state.proficiency)}
+          {renderEntry('Level', this.state.level)}
+          {renderEntry('Armor Class', this.state.armorClass)}
+          {renderEntry('Max HP', this.state.maxHP)}
+          {renderEntry('Hit Dice', this.state.hitDice)}
+          {renderEntry('Speed', this.state.speed)}
+          <br />
+
+          {
+            this.state.senses != null ?
+              renderArrayWithTitle(this.state.senses, 'Senses') :
+              <div></div>
+          }
+          {
+            this.state.languages != null ?
+              renderArrayWithTitle(this.state.languages, 'Languages') :
+              <div></div>
+          }
+          <br />
+
+          <h3>Equipment</h3>
+          {
+            this.state.equipment != null ?
+              renderDictionary(this.state.equipment) :
+              <div></div>
+          }
+        </div>
+      );
+    } else {
+      return (<div></div>);
+    }
   }
 };

@@ -43,7 +43,7 @@ export default class DNDContainer extends React.Component {
     });
   }
 
-  monstersGrid(): React$Element<{}> {
+  monstersGrid() {
     return (
       <div key='/api/monsters'>
         <Grid
@@ -58,7 +58,7 @@ export default class DNDContainer extends React.Component {
     );
   }
 
-  spellsGrid(): React$Element<{}> {
+  spellsGrid() {
     return (
       <div key='/api/spells'>
         <Grid
@@ -73,7 +73,7 @@ export default class DNDContainer extends React.Component {
     );
   }
 
-  grid(gridType: string): ?React$Element<{}> {
+  grid(gridType: string) {
     if (gridType === 'monsters') {
       return this.monstersGrid();
     } else if (gridType === 'spells') {
@@ -83,7 +83,7 @@ export default class DNDContainer extends React.Component {
     }
   }
 
-  greenArcher(): React$Element<{}> {
+  greenArcher() {
     return (
       <Character
         dataType='json'
@@ -92,7 +92,7 @@ export default class DNDContainer extends React.Component {
     );
   }
 
-  renderCharacter(name: string): ?React$Element<{}> {
+  renderCharacter(name: string) {
     if (name === 'Green Archer') {
       return this.greenArcher();
     } else {
@@ -103,7 +103,7 @@ export default class DNDContainer extends React.Component {
   renderCharacterButton(
     name: string,
     onButtonClick: () => void,
-  ): React$Element<{}> {
+  ) {
     return(
       <button
         type="button"
@@ -123,14 +123,14 @@ export default class DNDContainer extends React.Component {
     });
   }
 
-  renderCharacterButtons(name: string): React$Element<{}> {
+  renderCharacterButtons(name: string) {
     return this.renderCharacterButton(
       name,
       this.onCharacterButtonClick.bind(this, name),
     );
   }
 
-  renderSpell(spell: Object): React$Element<{}> {
+  renderSpell(spell: Object) {
     return (
       <Spell
         closeButtonText='Got it!'
@@ -141,7 +141,7 @@ export default class DNDContainer extends React.Component {
     );
   }
 
-  render(): React$Element<{}> {
+  render() {
     const customStyles = {
       content : {
         top                   : '50%',
