@@ -3,8 +3,10 @@
 const React: any = require('react');
 const Modal = require('react-modal');
 
+import Character from './character.jsx';
 import Grid from './grid.jsx';
 import List from './list.jsx';
+import Spell from './spell.jsx';
 
 type DNDContainerProps = {};
 
@@ -13,6 +15,7 @@ export default class DNDContainer extends React.Component {
 
   state: {
     isModalOpen: boolean,
+    selectedCharacterName: ?string,
     selectedSpell: ?Object,
   }
 
@@ -20,12 +23,17 @@ export default class DNDContainer extends React.Component {
     super(props);
     this.state = {
       isModalOpen: false,
+      selectedCharacterName: null,
       selectedSpell: null,
     };
   }
 
   closeModal(): void {
-    this.setState({isModalOpen: false});
+    this.setState({
+      isModalOpen: false,
+      selectedCharacterName: null,
+      selectedSpell: null,
+    });
   }
 
   onSpellsRowClick(gridRow: Object, event: Object): void {
@@ -43,7 +51,8 @@ export default class DNDContainer extends React.Component {
           dataType='json'
           dataUrl='/api/monsters'
           placeholderText='Search Monsters...'
-          onRowClick={this.closeModal.bind(this)} />
+          onRowClick={this.closeModal.bind(this)}
+          />
         <br />
       </div>
     );
@@ -56,9 +65,9 @@ export default class DNDContainer extends React.Component {
           columns={["name", "range", "components", "school"]}
           dataType='json'
           dataUrl='/api/spells'
-          key='/api/spells'
           placeholderText='Search Spells...'
-          onRowClick={this.onSpellsRowClick.bind(this)} />
+          onRowClick={this.onSpellsRowClick.bind(this)}
+          />
         <br />
       </div>
     );
@@ -74,6 +83,64 @@ export default class DNDContainer extends React.Component {
     }
   }
 
+  greenArcher(): React$Element<{}> {
+    return (
+      <Character
+        dataType='json'
+        dataUrl='/api/greenArcher'
+        />
+    );
+  }
+
+  renderCharacter(name: string): ?React$Element<{}> {
+    if (name === 'Green Archer') {
+      return this.greenArcher();
+    } else {
+      return null;
+    }
+  }
+
+  renderCharacterButton(
+    name: string,
+    onButtonClick: () => void,
+  ): React$Element<{}> {
+    return(
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={onButtonClick}
+        key={name}
+        >
+        {name}
+      </button>
+    );
+  }
+
+  onCharacterButtonClick(name: string): void {
+    this.setState({
+      isModalOpen: true,
+      selectedCharacterName: name,
+    });
+  }
+
+  renderCharacterButtons(name: string): React$Element<{}> {
+    return this.renderCharacterButton(
+      name,
+      this.onCharacterButtonClick.bind(this, name),
+    );
+  }
+
+  renderSpell(spell: Object): React$Element<{}> {
+    return (
+      <Spell
+        closeButtonText='Got it!'
+        description={spell.desc}
+        name={spell.name}
+        onCloseButtonClick={this.closeModal.bind(this)}
+        />
+    );
+  }
+
   render(): React$Element<{}> {
     const customStyles = {
       content : {
@@ -83,34 +150,41 @@ export default class DNDContainer extends React.Component {
         bottom                : 'auto',
         marginRight           : '-50%',
         transform             : 'translate(-50%, -50%)',
-        maxWidth              : '800'
+        maxWidth              : '800px'
       }
     };
 
     return (
       <div>
         <List
+          items={['Green Archer']}
+          componentBlock={this.renderCharacterButtons.bind(this)}
+          />
+
+        <br />
+
+        <List
           items={['monsters', 'spells']}
-          componentBlock={this.grid.bind(this)} />
+          componentBlock={this.grid.bind(this)}
+          />
 
         {
-          this.state.isModalOpen && this.state.selectedSpell != null ?
+          this.state.isModalOpen ?
           <Modal
             isOpen={this.state.isModalOpen}
             onRequestClose={this.closeModal.bind(this)}
-            style={customStyles}>
-
-            <h2 ref="subtitle">{this.state.selectedSpell.name}</h2>
-            <div>
-              {this.state.selectedSpell.desc}
-            </div>
-            <br />
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={this.closeModal.bind(this)}>
-              Got it!
-            </button>
+            style={customStyles}
+            >
+            {
+              this.state.selectedSpell != null ?
+                this.renderSpell(this.state.selectedSpell) :
+                  <div></div>
+            }
+            {
+              this.state.selectedCharacterName != null ?
+                this.renderCharacter(this.state.selectedCharacterName) :
+                <div></div>
+            }
           </Modal> :
           <div></div>
         }
