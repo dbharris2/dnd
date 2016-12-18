@@ -1,0 +1,44 @@
+{
+  "name": "Green Archer",
+  "race": "Elf",
+  "class": "Ranger",
+  "proficiency": "3",
+  "level": "7",
+  "armorClass": "17",
+  "maxHP": "53",
+  "hitDice": "7d10",
+  "speed": "30ft",
+  "senses": [
+    "Darkvision 30ft",
+    "Passive perception"
+  ],
+  "languages": [
+    "Common",
+    "Elvish",
+    "Draconic"
+  ],
+  "equipment": {
+    "Longbow": "This weapon does 1d8 piercing damage. You get a +2 to hit bonus for using ranged weapons.",
+    "Short Sword": "For close combat. This weapon does 1d6 piercing damage.",
+    "Scale Mail Armor": "This is armor class 14.",
+    "Backpack": [
+      "Bedroll",
+      "Mess Kit",
+      "Tinderbox",
+      "10 torches",
+      "10 days rations",
+      "Water skin",
+      "Rope (50 ft)"
+    ],
+    "Money": "610 gold",
+    "Water Ring": "Allows you to breath underwater, can't breathe air though",
+    "Silver's Crazy Ring": "Made Silver go crazy",
+    "Predator's Strike Scale Armor": {
+      "attributes": {
+        "Armor Class": "12",
+        "Magical Attribute": "You have advantage against any foe that hasn’t taken a turn yet",
+        "Description": "This is crocodile skin armor that imbues you with reflexes of a crocodile. You can strike quickly and accurately when ambushing prey."
+      }
+    }
+  }
+}
