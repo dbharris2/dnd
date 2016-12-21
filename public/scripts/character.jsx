@@ -32,6 +32,7 @@ export default class Character extends React.Component {
     race: string,
     senses: [],
     speed: string,
+    weapons: {},
   }
 
   constructor(props: CharacterProps): void {
@@ -68,6 +69,7 @@ export default class Character extends React.Component {
         race: data.race,
         senses: data.senses,
         speed: data.speed,
+        weapons: data.weapons,
       });
     });
   }
@@ -108,6 +110,9 @@ export default class Character extends React.Component {
 
           <h3>Equipment</h3>
           <CharacterEquipment equipment={this.state.equipment} />
+
+          <h3>Weapons</h3>
+          <CharacterEquipment equipment={this.state.weapons} />
         </div>
       );
     } else {

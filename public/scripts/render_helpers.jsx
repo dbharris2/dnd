@@ -33,14 +33,14 @@ function renderDictionaryWithTitleAndLevelsDeep(
       {
         Object.keys(dictionary).map(function(key: string) {
           const value = dictionary[key];
-          if (value.attributes != null) {
+          if (Array.isArray(value)) {
+            return renderArrayWithTitle(value, key);
+          } else if (value.constructor == Object) {
             return renderDictionaryWithTitleAndLevelsDeep(
-              value.attributes,
+              value,
               key,
               levelsDeep+1,
             );
-          } else if (Array.isArray(value)) {
-            return renderArrayWithTitle(value, key);
           } else {
             return renderEntryWithLevelsDeep(key, value, levelsDeep);
           }
@@ -50,11 +50,11 @@ function renderDictionaryWithTitleAndLevelsDeep(
   );
 }
 
-/* Public API */
-
 function renderDictionaryWithTitle(dictionary: Object, title: ?string) {
   return renderDictionaryWithTitleAndLevelsDeep(dictionary, title, 0);
 }
+
+/* Public API */
 
 export function renderEntry(title: string, description: string) {
   return renderEntryWithLevelsDeep(title, description, 0);
