@@ -7,6 +7,12 @@
   "armorClass": "17",
   "maxHP": "53",
   "hitDice": "7d10",
+  "strength": "12 (+1)",
+  "dexterity": "16 (+3)",
+  "constitution": "14 (+2)",
+  "intelligence": "14 (+2)",
+  "wisdom": "11 (+0)",
+  "charisma": "12 (+1)",
   "speed": "30ft",
   "senses": [
     "Darkvision 30ft",

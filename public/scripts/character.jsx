@@ -21,9 +21,13 @@ export default class Character extends React.Component {
 
   state: {
     armorClass: string,
+    charisma: string,
     class: string,
+    constitution: string,
+    dexterity: string,
     equipment: {},
     hitDice: string,
+    intelligence: string,
     languages: [],
     level: string,
     maxHP: string,
@@ -32,16 +36,22 @@ export default class Character extends React.Component {
     race: string,
     senses: [],
     speed: string,
+    strength: string,
     weapons: {},
+    wisdom: string,
   }
 
   constructor(props: CharacterProps): void {
     super(props);
     this.state = {
       armorClass: '',
+      charisma: '',
       class: '',
+      constitution: '',
+      dexterity: '',
       equipment: {},
       hitDice: '',
+      intelligence: '',
       languages: [],
       level: '',
       maxHP: '',
@@ -50,6 +60,9 @@ export default class Character extends React.Component {
       race: '',
       senses: [],
       speed: '',
+      strength: '',
+      weapons: {},
+      wisdom: '',
     };
   }
 
@@ -58,9 +71,13 @@ export default class Character extends React.Component {
       const data: Object = response.data;
       this.setState({
         armorClass: data.armorClass,
+        charisma: data.charisma,
         class: data.class,
+        constitution: data.constitution,
+        dexterity: data.dexterity,
         equipment: data.equipment,
         hitDice: data.hitDice,
+        intelligence: data.intelligence,
         languages: data.languages,
         level: data.level,
         maxHP: data.maxHP,
@@ -69,7 +86,9 @@ export default class Character extends React.Component {
         race: data.race,
         senses: data.senses,
         speed: data.speed,
+        strength: data.strength,
         weapons: data.weapons,
+        wisdom: data.wisdom,
       });
     });
   }
@@ -86,6 +105,14 @@ export default class Character extends React.Component {
           {renderEntry('Name', this.state.name)}
           {renderEntry('Race', this.state.race)}
           {renderEntry('Class', this.state.class)}
+          <br />
+
+          {renderEntry('STR', this.state.strength)}
+          {renderEntry('DEX', this.state.dexterity)}
+          {renderEntry('CON', this.state.constitution)}
+          {renderEntry('INT', this.state.intelligence)}
+          {renderEntry('CHA', this.state.charisma)}
+          {renderEntry('WIS', this.state.wisdom)}
           <br />
 
           {renderEntry('Proficiency', this.state.proficiency)}
