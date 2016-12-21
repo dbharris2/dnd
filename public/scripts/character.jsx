@@ -1,9 +1,11 @@
 /* @flow */
 
-const $ = require('jquery');
 const React: any = require('react');
 
 import CharacterEquipment from './character_equipment.jsx';
+import {
+  fetchDataFromUri,
+} from './network_request_helpers.jsx';
 import {
   renderArrayWithTitle,
   renderEntry,
@@ -51,29 +53,22 @@ export default class Character extends React.Component {
   }
 
   loadData(): void {
-    $.ajax({
-      url: this.props.dataUrl,
-      dataType: this.props.dataType,
-      cache: true,
-      success: function(data): void {
-        this.setState({
-          armorClass: data.armorClass,
-          class: data.class,
-          equipment: data.equipment,
-          hitDice: data.hitDice,
-          languages: data.languages,
-          level: data.level,
-          maxHP: data.maxHP,
-          name: data.name,
-          proficiency: data.proficiency,
-          race: data.race,
-          senses: data.senses,
-          speed: data.speed,
-        });
-      }.bind(this),
-      error: function(xhr, status, err): void {
-        console.error(this.props.dataUrl, status, err.toString());
-      }.bind(this)
+    fetchDataFromUri(this.props.dataUrl, (response) => {
+      const data: Object = response.data;
+      this.setState({
+        armorClass: data.armorClass,
+        class: data.class,
+        equipment: data.equipment,
+        hitDice: data.hitDice,
+        languages: data.languages,
+        level: data.level,
+        maxHP: data.maxHP,
+        name: data.name,
+        proficiency: data.proficiency,
+        race: data.race,
+        senses: data.senses,
+        speed: data.speed,
+      });
     });
   }
 
