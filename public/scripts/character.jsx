@@ -2,7 +2,7 @@
 
 const React: any = require('react');
 
-import CharacterEquipment from './character_equipment.jsx';
+import CharacterEquipment from './character_equipment';
 import {
   fetchDataFromUri,
 } from './network_request_helpers.jsx';

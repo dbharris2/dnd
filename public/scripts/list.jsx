@@ -10,7 +10,7 @@ type ListProps = {
 export default class List extends React.Component {
   props: ListProps;
 
-  state: {}
+  state: {};
 
   constructor(props: ListProps): void {
     super(props);

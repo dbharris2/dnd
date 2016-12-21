@@ -1,7 +1,6 @@
 const React: any = require('react');
 
 export default function Header() {
-
   const style = {
     textAlign: 'center'
   };
