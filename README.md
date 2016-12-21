@@ -5,6 +5,7 @@
 
 *The actual commands:*
 ```
+yarn install
 yarn run dev
 yarn start
 ```
