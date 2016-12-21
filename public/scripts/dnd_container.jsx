@@ -5,6 +5,7 @@ const Modal = require('react-modal');
 
 import Character from './character.jsx';
 import Grid from './grid.jsx';
+import Header from './header.jsx';
 import List from './list.jsx';
 import Spell from './spell.jsx';
 
@@ -17,7 +18,7 @@ export default class DNDContainer extends React.Component {
     isModalOpen: boolean,
     selectedCharacterName: ?string,
     selectedSpell: ?Object,
-  }
+  };
 
   constructor(props: DNDContainerProps): void {
     super(props);
@@ -156,6 +157,7 @@ export default class DNDContainer extends React.Component {
 
     return (
       <div>
+        <Header />
         <List
           items={['Green Archer']}
           componentBlock={this.renderCharacterButtons.bind(this)}
