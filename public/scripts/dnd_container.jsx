@@ -3,11 +3,11 @@
 const React: any = require('react');
 const Modal = require('react-modal');
 
-import Character from './character.jsx';
-import Grid from './grid.jsx';
-import Header from './header.jsx';
-import List from './list.jsx';
-import Spell from './spell.jsx';
+import Character from './character';
+import Grid from './grid';
+import Header from './header';
+import List from './list';
+import Spell from './spell';
 
 type DNDContainerProps = {};
 
