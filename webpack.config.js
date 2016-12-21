@@ -10,7 +10,6 @@ var config = {
   entry: {
     app: APP_DIR + '/main.jsx',
     vendor: [
-      'jquery',
       'react',
       'react-dom',
       'griddle-react'
