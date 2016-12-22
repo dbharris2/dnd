@@ -10,6 +10,76 @@ import Header from './header';
 import List from './list';
 import Spell from './spell';
 
+function greenArcher() {
+  return (
+    <Character
+      dataType='json'
+      dataUrl='/api/greenArcher'
+      />
+  );
+}
+
+function renderCharacterWithName(name: string) {
+  if (name === 'Green Archer') {
+    return greenArcher();
+  } else {
+    return null;
+  }
+}
+
+function renderCharacterButton(
+  name: string,
+  onButtonClick: () => void,
+) {
+  return(
+    <Button
+      className="btn btn-primary"
+      onClick={onButtonClick}
+      text={name}
+      />
+  );
+}
+
+function renderMonstersGrid() {
+  return (
+    <div key='/api/monsters'>
+      <Grid
+        columns={["name", "size", "type", "alignment"]}
+        dataType='json'
+        dataUrl='/api/monsters'
+        placeholderText='Search Monsters...'
+        />
+      <br />
+    </div>
+  );
+}
+
+function renderSpell(spell: Object, onCloseButtonClick: () => void) {
+  return (
+    <Spell
+      closeButtonText='Got it!'
+      description={spell.desc}
+      name={spell.name}
+      onCloseButtonClick={onCloseButtonClick}
+      />
+  );
+}
+
+function renderSpellsGrid(onRowClick: (gridRow: Object, event: Object) => void) {
+  return (
+    <div key='/api/spells'>
+      <Grid
+        columns={["name", "range", "components", "school"]}
+        dataType='json'
+        dataUrl='/api/spells'
+        placeholderText='Search Spells...'
+        onRowClick={onRowClick}
+        />
+      <br />
+    </div>
+  );
+}
+
 type DNDContainerProps = {};
 
 export default class DNDContainer extends React.Component {
@@ -45,74 +115,14 @@ export default class DNDContainer extends React.Component {
     });
   }
 
-  monstersGrid() {
-    return (
-      <div key='/api/monsters'>
-        <Grid
-          columns={["name", "size", "type", "alignment"]}
-          dataType='json'
-          dataUrl='/api/monsters'
-          placeholderText='Search Monsters...'
-          onRowClick={this.closeModal.bind(this)}
-          />
-        <br />
-      </div>
-    );
-  }
-
-  spellsGrid() {
-    return (
-      <div key='/api/spells'>
-        <Grid
-          columns={["name", "range", "components", "school"]}
-          dataType='json'
-          dataUrl='/api/spells'
-          placeholderText='Search Spells...'
-          onRowClick={this.onSpellsRowClick.bind(this)}
-          />
-        <br />
-      </div>
-    );
-  }
-
-  grid(gridType: string) {
+  renderGrid(gridType: string) {
     if (gridType === 'monsters') {
-      return this.monstersGrid();
+      return renderMonstersGrid();
     } else if (gridType === 'spells') {
-      return this.spellsGrid();
+      return renderSpellsGrid(this.onSpellsRowClick.bind(this));
     } else {
       return null;
     }
-  }
-
-  greenArcher() {
-    return (
-      <Character
-        dataType='json'
-        dataUrl='/api/greenArcher'
-        />
-    );
-  }
-
-  renderCharacter(name: string) {
-    if (name === 'Green Archer') {
-      return this.greenArcher();
-    } else {
-      return null;
-    }
-  }
-
-  renderCharacterButton(
-    name: string,
-    onButtonClick: () => void,
-  ) {
-    return(
-      <Button
-        className="btn btn-primary"
-        onClick={onButtonClick}
-        text={name}
-        />
-    );
   }
 
   onCharacterButtonClick(name: string): void {
@@ -123,20 +133,9 @@ export default class DNDContainer extends React.Component {
   }
 
   renderCharacterButtons(name: string) {
-    return this.renderCharacterButton(
+    return renderCharacterButton(
       name,
       this.onCharacterButtonClick.bind(this, name),
-    );
-  }
-
-  renderSpell(spell: Object) {
-    return (
-      <Spell
-        closeButtonText='Got it!'
-        description={spell.desc}
-        name={spell.name}
-        onCloseButtonClick={this.closeModal.bind(this)}
-        />
     );
   }
 
@@ -167,7 +166,7 @@ export default class DNDContainer extends React.Component {
 
         <List
           items={['monsters', 'spells']}
-          componentBlock={this.grid.bind(this)}
+          componentBlock={this.renderGrid.bind(this)}
           />
 
         {
@@ -180,12 +179,12 @@ export default class DNDContainer extends React.Component {
             >
             {
               this.state.selectedSpell != null ?
-                this.renderSpell(this.state.selectedSpell) :
+                renderSpell(this.state.selectedSpell, this.closeModal.bind(this)) :
                   <div></div>
             }
             {
               this.state.selectedCharacterName != null ?
-                this.renderCharacter(this.state.selectedCharacterName) :
+                renderCharacterWithName(this.state.selectedCharacterName) :
                 <div></div>
             }
           </Modal> :
