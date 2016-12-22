@@ -3,6 +3,7 @@
 const React: any = require('react');
 const Modal = require('react-modal');
 
+import Button from './button';
 import Character from './character';
 import Grid from './grid';
 import Header from './header';
@@ -106,14 +107,11 @@ export default class DNDContainer extends React.Component {
     onButtonClick: () => void,
   ) {
     return(
-      <button
-        type="button"
+      <Button
         className="btn btn-primary"
         onClick={onButtonClick}
-        key={name}
-        >
-        {name}
-      </button>
+        text={name}
+        />
     );
   }
 
@@ -178,6 +176,7 @@ export default class DNDContainer extends React.Component {
             isOpen={this.state.isModalOpen}
             onRequestClose={this.closeModal.bind(this)}
             style={customStyles}
+            contentLabel="Modal"
             >
             {
               this.state.selectedSpell != null ?
