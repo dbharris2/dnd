@@ -1,6 +1,6 @@
 /* @flow */
 
-const React: any = require('react');
+import React from 'react';
 
 type ListProps = {
   items: React.PropTypes.array.isRequired,

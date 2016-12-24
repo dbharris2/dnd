@@ -1,7 +1,7 @@
 /* @flow */
 
-const React: any = require('react');
-const Modal = require('react-modal');
+import React from 'react';
+import Modal from 'react-modal';
 
 import Button from './button';
 import Character from './character';

@@ -1,7 +1,7 @@
 /* @flow */
 
-const React: any = require('react');
-const Griddle = require('griddle-react');
+import React from 'react';
+import Griddle from 'griddle-react';
 
 import {
   fetchDataFromUri,

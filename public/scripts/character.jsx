@@ -1,6 +1,6 @@
 /* @flow */
 
-const React: any = require('react');
+import React from 'react';
 
 import CharacterEquipment from './character_equipment';
 import {

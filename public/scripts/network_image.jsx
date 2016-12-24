@@ -1,4 +1,4 @@
-const React: any = require('react');
+import React from 'react';
 
 export default function NetworkImage(props: {
   uri: string,
@@ -10,7 +10,7 @@ export default function NetworkImage(props: {
       <img
         src={props.uri}
         width={props.width}
-        height={props.height} 
+        height={props.height}
         />
     </div>
   );

@@ -1,4 +1,4 @@
-const React: any = require('react');
+import React from 'react';
 
 /* Private API */
 

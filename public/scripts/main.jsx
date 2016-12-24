@@ -1,7 +1,7 @@
 /* @flow */
 
-const React: any = require('react');
-const ReactDOM = require('react-dom');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 import DNDContainer from './dnd_container';
 
