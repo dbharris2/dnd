@@ -16,7 +16,7 @@ export default class List extends React.Component {
     super(props);
   }
 
-  render(): React$Element<{}> {
+  render() {
     const componentBlock = this.props.componentBlock;
     const items = this.props.items.map(function(item) {
       return componentBlock(item);

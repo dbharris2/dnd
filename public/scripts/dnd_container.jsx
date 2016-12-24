@@ -36,6 +36,7 @@ function renderCharacterButton(
       className="btn btn-primary"
       onClick={onButtonClick}
       text={name}
+      containerDivStyle={{display: "inline-block"}}
       />
   );
 }
@@ -132,11 +133,13 @@ export default class DNDContainer extends React.Component {
     });
   }
 
-  renderCharacterButtons(name: string) {
-    return renderCharacterButton(
-      name,
-      this.onCharacterButtonClick.bind(this, name),
-    );
+  renderCharacterButtons(buttonText: string) {
+    return [buttonText].map((name) => {
+      return renderCharacterButton(
+        name,
+        this.onCharacterButtonClick.bind(this, name),
+      );
+    });
   }
 
   render() {

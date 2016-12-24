@@ -1,20 +1,23 @@
 const React: any = require('react');
 
-export default function Button(props: {
+type ButtonProps = {
   className: string,
   onClick: func,
   text: string,
-}) {
+  containerDivStyle: Object,
+};
+
+export default function Button(props: ButtonProps) {
   return (
-    <div>
-    <button
-      type="button"
-      className="btn btn-primary"
-      onClick={props.onClick}
-      key={props.text}
-      >
-      {props.text}
-    </button>
+    <div style={props.containerDivStyle}>
+      <button
+        type="button"
+        className={props.className}
+        onClick={props.onClick}
+        key={props.text}
+        >
+        {props.text}
+      </button>
     </div>
   );
 };
