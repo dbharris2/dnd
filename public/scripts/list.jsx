@@ -7,25 +7,15 @@ type ListProps = {
   componentBlock: React.PropTypes.func.isRequired,
 };
 
-export default class List extends React.Component {
-  props: ListProps;
+export default function List(props: ListProps) {
+  const componentBlock = props.componentBlock;
+  const items = props.items.map(function(item) {
+    return componentBlock(item);
+  });
 
-  state: {};
-
-  constructor(props: ListProps): void {
-    super(props);
-  }
-
-  render() {
-    const componentBlock = this.props.componentBlock;
-    const items = this.props.items.map(function(item) {
-      return componentBlock(item);
-    });
-
-    return (
-      <div>
-        {items}
-      </div>
-    );
-  }
+  return (
+    <div>
+      {items}
+    </div>
+  );
 };
