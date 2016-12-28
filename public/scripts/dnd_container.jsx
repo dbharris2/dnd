@@ -3,6 +3,7 @@
 import React from 'react';
 import Modal from 'react-modal';
 
+import Background from './background';
 import Button from './button';
 import Character from './character';
 import Grid from './grid';
