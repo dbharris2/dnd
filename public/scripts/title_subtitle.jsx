@@ -13,6 +13,15 @@ type TitleSubtitleProps = {
   title: string,
 };
 
+/**
+ This component creates a basic title, subtitle, and image arrangement.
+ If a uri, title, and subtitle are provided, you will see an output similar to
+ the output below.
+
+ |       | Title    |
+ | Image | -------- |
+ |       | Subtitle |
+ */
 export default function TitleSubtitle(props: TitleSubtitleProps) {
   return (
     <Flexbox flexDirection='row'>
