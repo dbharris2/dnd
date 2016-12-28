@@ -4,10 +4,14 @@ import React from 'react';
 import Flexbox from 'flexbox-react';
 
 type BackgroundProps = {
+  alignItems: string,
   background: string,
   border: string,
   borderRadius: string,
+  display: string,
   height: string,
+  flexDirection: string,
+  justifyContent: string,
   width: string,
 };
 
@@ -17,7 +21,7 @@ type BackgroundProps = {
   background='clear'
   border='1px black solid'
   borderRadius='10%'
-  display='flex'
+  flexDirection='column'
   height='100px'
   justifyContent='center'
   width='100px'
@@ -32,13 +36,13 @@ export default function Background(props: BackgroundProps) {
     background: props.background,
     border: props.border,
     borderRadius: props.borderRadius,
-    display: props.display,
     height: props.height,
+    flexDirection: props.flexDirection,
     justifyContent: props.justifyContent,
     width: props.width,
   };
   return (
-    <Flexbox flexDirection="column" style={containerStyle}>
+    <Flexbox style={containerStyle}>
       {props.children}
     </Flexbox>
   );
