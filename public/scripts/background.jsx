@@ -8,7 +8,6 @@ type BackgroundProps = {
   background: string,
   border: string,
   borderRadius: string,
-  display: string,
   height: string,
   flexDirection: string,
   justifyContent: string,
