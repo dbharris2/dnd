@@ -88,26 +88,16 @@ function renderSpellsGrid(onRowClick: (gridRow: Object, event: Object) => void) 
 
 function imageUriForModel(model: string): string {
   if (model === 'Spells') {
-    return 'http://magic.wizards.com/sites/mtg/files/images/featured/EN_Spells%26Gameplay_CastingSpells_TallRotator.png';
+    return 'http://icons.iconarchive.com/icons/icojoy/enjoyment/128/wizard-icon.png';
   } else if (model === 'Monsters') {
-    return 'http://www.aidedd.org/dnd/images/skeleton.jpg';
-  }
-}
-
-function backgroundDimensionsForModel(model: string): string {
-  if (model === 'Spells') {
-    return {width: 160, height: 160};
-  } else if (model === 'Monsters') {
-    return {width: 180, height: 160};
+    return 'http://findicons.com/files/icons/176/monster/128/monster3.png';
+  } else if (model === 'Green Archer') {
+    return 'http://www.i2clipart.com/cliparts/c/e/8/c/clipart-archer-ce8c.png';
   }
 }
 
 function imageDimensionsForModel(model: string): string {
-  if (model === 'Spells') {
-    return {width: 80, height: 128};
-  } else if (model === 'Monsters') {
-    return {width: 80, height: 128};
-  }
+  return {width: 32, height: 32};
 }
 
 type DNDContainerProps = {};
@@ -219,12 +209,11 @@ export default class DNDContainer extends React.Component {
 
   getCharacterButtonModels() {
     return ['Green Archer'].map((name) => {
+      const imageDimensions: Object = imageDimensionsForModel(name);
       return {
-        backgroundWidth: 160,
-        backgroundHeight: 160,
-        imageWidth: 80,
-        imageHeight: 128,
-        imageUri: 'http://vignette2.wikia.nocookie.net/nintendo/images/8/8c/Shinon.jpg/revision/latest?cb=20080624204842&path-prefix=en',
+        imageWidth: imageDimensions.width,
+        imageHeight: imageDimensions.height,
+        imageUri: imageUriForModel(name),
         name: name,
         onClick: this.fetchCharacterData.bind(this, '/api/greenArcher'),
       };
@@ -233,11 +222,8 @@ export default class DNDContainer extends React.Component {
 
   getSpellAndMonsterButtonModels() {
     return ['Monsters', 'Spells'].map((name) => {
-      const backgroundDimensions: Object = backgroundDimensionsForModel(name);
       const imageDimensions: Object = imageDimensionsForModel(name);
       return {
-        backgroundWidth: backgroundDimensions.width,
-        backgroundHeight: backgroundDimensions.height,
         imageWidth: imageDimensions.width,
         imageHeight: imageDimensions.height,
         imageUri: imageUriForModel(name),
@@ -266,36 +252,29 @@ export default class DNDContainer extends React.Component {
       <div>
         <Header />
 
-        <Flexbox flexDirection='row' justifyContent='center'>
-          <Flexbox>
+        <Flexbox flexDirection='row' justifyContent='space-between'>
+          <Flexbox flexDirection='column' width='15%'>
             <CharacterButtons
               characters={this.getCharacterButtonModels()}
               />
-          </Flexbox>
-          <Flexbox>
             <CharacterButtons
               characters={this.getSpellAndMonsterButtonModels()}
               />
           </Flexbox>
+          <Flexbox width='85%'>
+            {this.state.renderMonsters ? renderMonstersGrid() : <div></div>}
+            {
+              this.state.renderSpells ?
+                renderSpellsGrid(this.onSpellsRowClick.bind(this)) :
+                <div></div>
+            }
+            {
+              this.state.renderCharacter ?
+                renderCharacter(this.state) :
+                <div></div>
+            }
+          </Flexbox>
         </Flexbox>
-
-        <br />
-
-        {this.state.renderMonsters ? renderMonstersGrid() : <div></div>}
-
-        {
-          this.state.renderSpells ?
-            renderSpellsGrid(this.onSpellsRowClick.bind(this)) :
-            <div></div>
-        }
-
-        {
-          this.state.renderCharacter ?
-            renderCharacter(this.state) :
-            <div></div>
-        }
-
-        <br />
 
         {
           this.state.isModalOpen && this.state.selectedSpell != null ?

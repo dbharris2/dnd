@@ -6,8 +6,6 @@ import Flexbox from 'flexbox-react';
 import CharacterButton from './character_button';
 
 type Character = {
-  backgroundHeight: number,
-  backgroundWidth: number,
   imageHeight: number,
   imageWidth: number,
   imageUri: string,
@@ -23,20 +21,18 @@ export default function CharacterButtons(props: CharacterButtonsProps) {
   const characters = props.characters.map((character) => {
     return (
       <CharacterButton
-        backgroundWidth={character.backgroundWidth}
-        backgroundHeight={character.backgroundHeight}
         imageUri={character.imageUri}
         imageWidth={character.imageWidth}
         imageHeight={character.imageHeight}
         onClick={character.onClick}
         title={character.name}
-        titleFontSize={20}
+        titleFontSize={14}
         />
     );
   });
 
   return (
-    <Flexbox flexDirection='row'>
+    <Flexbox flexDirection='column'>
       {characters}
     </Flexbox>
   );
