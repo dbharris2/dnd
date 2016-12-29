@@ -10,7 +10,9 @@ type TitleSubtitleProps = {
   imageWidth: number,
   imageUri: string,
   subtitle: string,
+  subtitleFontSize: number,
   title: string,
+  titleFontSize: number,
 };
 
 /**
@@ -21,8 +23,27 @@ type TitleSubtitleProps = {
  |       | Title    |
  | Image | -------- |
  |       | Subtitle |
+
+ If you don't provide a subtitle, you'll see something similar to this.
+
+ |       |       |
+ | Image | Title |
+ |       |       |
  */
 export default function TitleSubtitle(props: TitleSubtitleProps) {
+  const columnStyle = {
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  };
+  const subtitleStyle = {
+    alignItems: 'center',
+    fontSize: props.subtitleFontSize + 'px',
+  };
+  const titleStyle = {
+    alignItems: 'center',
+    flexGrow: props.subtitle == null ? 1 : 0,
+    fontSize: props.titleFontSize + 'px',
+  };
   return (
     <Flexbox flexDirection='row'>
       <Flexbox>
@@ -32,11 +53,11 @@ export default function TitleSubtitle(props: TitleSubtitleProps) {
           height={props.imageHeight}
           />
       </Flexbox>
-      <Flexbox flexDirection='column'>
-        <Flexbox>
+      <Flexbox flexDirection='column' style={columnStyle}>
+        <Flexbox style={titleStyle}>
           {props.title}
         </Flexbox>
-        <Flexbox>
+        <Flexbox style={subtitleStyle}>
           {props.subtitle}
         </Flexbox>
       </Flexbox>

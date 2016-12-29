@@ -4,127 +4,65 @@ import React from 'react';
 
 import CharacterEquipment from './character_equipment';
 import {
-  fetchDataFromUri,
-} from './network_request_helpers.jsx';
-import {
   renderArrayWithTitle,
   renderEntry,
 } from './render_helpers.jsx'
 
 type CharacterProps = {
-  dataType: string,
-  dataUrl: string,
+  armorClass: string,
+  attributes: {},
+  class: string,
+  equipment: {},
+  hitDice: string,
+  languages: [],
+  level: string,
+  maxHP: string,
+  name: string,
+  proficiency: string,
+  race: string,
+  senses: [],
+  speed: string,
+  weapons: {},
 };
 
-export default class Character extends React.Component {
-  props: CharacterProps;
+export default function Character(props: CharacterProps) {
+  return (
+    <div>
+      <h3>General</h3>
+      {renderEntry('Name', props.name)}
+      {renderEntry('Race', props.race)}
+      {renderEntry('Class', props.class)}
+      <br />
 
-  state: {
-    armorClass: string,
-    attributes: {},
-    class: string,
-    equipment: {},
-    hitDice: string,
-    languages: [],
-    level: string,
-    maxHP: string,
-    name: string,
-    proficiency: string,
-    race: string,
-    senses: [],
-    speed: string,
-    weapons: {},
-  }
+      {renderEntry('Proficiency', props.proficiency)}
+      {renderEntry('Level', props.level)}
+      {renderEntry('Armor Class', props.armorClass)}
+      {renderEntry('Max HP', props.maxHP)}
+      {renderEntry('Hit Dice', props.hitDice)}
+      {renderEntry('Speed', props.speed)}
+      <br />
 
-  constructor(props: CharacterProps): void {
-    super(props);
-    this.state = {
-      armorClass: '',
-      attributes: {},
-      class: '',
-      equipment: {},
-      hitDice: '',
-      languages: [],
-      level: '',
-      maxHP: '',
-      name: '',
-      proficiency: '',
-      race: '',
-      senses: [],
-      speed: '',
-      weapons: {},
-    };
-  }
+      {
+        props.senses != null ?
+          renderArrayWithTitle(props.senses, 'Senses') :
+          <div></div>
+      }
+      {
+        props.languages != null ?
+          renderArrayWithTitle(props.languages, 'Languages') :
+          <div></div>
+      }
+      <br />
 
-  loadData(): void {
-    fetchDataFromUri(this.props.dataUrl, (response) => {
-      const data: Object = response.data;
-      this.setState({
-        armorClass: data.armorClass,
-        attributes: data.attributes,
-        class: data.class,
-        equipment: data.equipment,
-        hitDice: data.hitDice,
-        languages: data.languages,
-        level: data.level,
-        maxHP: data.maxHP,
-        name: data.name,
-        proficiency: data.proficiency,
-        race: data.race,
-        senses: data.senses,
-        speed: data.speed,
-        weapons: data.weapons,
-      });
-    });
-  }
+      <h3>Attributes</h3>
+      <CharacterEquipment equipment={props.attributes} />
+      <br />
 
-  componentDidMount(): void {
-    this.loadData();
-  }
+      <h3>Equipment</h3>
+      <CharacterEquipment equipment={props.equipment} />
 
-  render() {
-    if (this.state.name != null) {
-      return (
-        <div>
-          <h3>General</h3>
-          {renderEntry('Name', this.state.name)}
-          {renderEntry('Race', this.state.race)}
-          {renderEntry('Class', this.state.class)}
-          <br />
-
-          {renderEntry('Proficiency', this.state.proficiency)}
-          {renderEntry('Level', this.state.level)}
-          {renderEntry('Armor Class', this.state.armorClass)}
-          {renderEntry('Max HP', this.state.maxHP)}
-          {renderEntry('Hit Dice', this.state.hitDice)}
-          {renderEntry('Speed', this.state.speed)}
-          <br />
-
-          {
-            this.state.senses != null ?
-              renderArrayWithTitle(this.state.senses, 'Senses') :
-              <div></div>
-          }
-          {
-            this.state.languages != null ?
-              renderArrayWithTitle(this.state.languages, 'Languages') :
-              <div></div>
-          }
-          <br />
-
-          <h3>Attributes</h3>
-          <CharacterEquipment equipment={this.state.attributes} />
-          <br />
-
-          <h3>Equipment</h3>
-          <CharacterEquipment equipment={this.state.equipment} />
-
-          <h3>Weapons</h3>
-          <CharacterEquipment equipment={this.state.weapons} />
-        </div>
-      );
-    } else {
-      return (<div></div>);
-    }
-  }
+      <h3>Weapons</h3>
+      <CharacterEquipment equipment={props.weapons} />
+    </div>
+  );
 };

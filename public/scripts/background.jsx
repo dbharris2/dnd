@@ -14,21 +14,6 @@ type BackgroundProps = {
   width: string,
 };
 
-/**
-<Background
-  alignItems='center'
-  background='clear'
-  border='1px black solid'
-  borderRadius='10%'
-  flexDirection='column'
-  height='100px'
-  justifyContent='center'
-  width='100px'
-  >
-  Hello!
-</Background>
- */
-
 export default function Background(props: BackgroundProps) {
   const containerStyle = {
     alignItems: props.alignItems,

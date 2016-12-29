@@ -1,14 +1,20 @@
 /* @flow */
 
 import React from 'react';
+import Flexbox from 'flexbox-react';
 import Modal from 'react-modal';
 
 import Button from './button';
 import Character from './character';
+import CharacterButtons from './character_buttons';
 import Grid from './grid';
 import Header from './header';
 import List from './list';
 import Spell from './spell';
+
+import {
+  fetchDataFromUri,
+} from './network_request_helpers.jsx';
 
 function greenArcher() {
   return (
@@ -19,24 +25,23 @@ function greenArcher() {
   );
 }
 
-function renderCharacterWithName(name: string) {
-  if (name === 'Green Archer') {
-    return greenArcher();
-  } else {
-    return null;
-  }
-}
-
-function renderCharacterButton(
-  name: string,
-  onButtonClick: () => void,
-) {
-  return(
-    <Button
-      className="btn btn-primary"
-      onClick={onButtonClick}
-      text={name}
-      containerDivStyle={{display: "inline-block"}}
+function renderCharacter(character: Object) {
+  return (
+    <Character
+      armorClass={character.armorClass}
+      attributes={character.attributes}
+      class={character.class}
+      equipment={character.equipment}
+      hitDice={character.hitDice}
+      languages={character.languages}
+      level={character.level}
+      maxHP={character.maxHP}
+      name={character.name}
+      proficiency={character.proficiency}
+      race={character.race}
+      senses={character.senses}
+      speed={character.speed}
+      weapons={character.weapons}
       />
   );
 }
@@ -81,30 +86,85 @@ function renderSpellsGrid(onRowClick: (gridRow: Object, event: Object) => void) 
   );
 }
 
+function imageUriForModel(model: string): string {
+  if (model === 'Spells') {
+    return 'http://magic.wizards.com/sites/mtg/files/images/featured/EN_Spells%26Gameplay_CastingSpells_TallRotator.png';
+  } else if (model === 'Monsters') {
+    return 'http://www.aidedd.org/dnd/images/skeleton.jpg';
+  }
+}
+
+function backgroundDimensionsForModel(model: string): string {
+  if (model === 'Spells') {
+    return {width: 160, height: 160};
+  } else if (model === 'Monsters') {
+    return {width: 180, height: 160};
+  }
+}
+
+function imageDimensionsForModel(model: string): string {
+  if (model === 'Spells') {
+    return {width: 80, height: 128};
+  } else if (model === 'Monsters') {
+    return {width: 80, height: 128};
+  }
+}
+
 type DNDContainerProps = {};
 
 export default class DNDContainer extends React.Component {
   props: DNDContainerProps;
 
   state: {
+    armorClass: string,
+    attributes: {},
+    class: string,
+    equipment: {},
+    hitDice: string,
     isModalOpen: boolean,
-    selectedCharacterName: ?string,
+    languages: [],
+    level: string,
+    maxHP: string,
+    name: string,
+    proficiency: string,
+    race: string,
+    renderCharacter: boolean,
+    renderMonsters: boolean,
+    renderSpells: boolean,
     selectedSpell: ?Object,
+    senses: [],
+    speed: string,
+    weapons: {},
   };
 
   constructor(props: DNDContainerProps): void {
     super(props);
     this.state = {
+      armorClass: '',
+      attributes: {},
+      class: '',
+      equipment: {},
+      hitDice: '',
       isModalOpen: false,
-      selectedCharacterName: null,
+      languages: [],
+      level: '',
+      maxHP: '',
+      name: null,
+      proficiency: '',
+      race: '',
+      renderCharacter: false,
+      renderMonsters: false,
+      renderSpells: true,
       selectedSpell: null,
+      senses: [],
+      speed: '',
+      weapons: {},
     };
   }
 
   closeModal(): void {
     this.setState({
       isModalOpen: false,
-      selectedCharacterName: null,
       selectedSpell: null,
     });
   }
@@ -116,29 +176,74 @@ export default class DNDContainer extends React.Component {
     });
   }
 
-  renderGrid(gridType: string) {
-    if (gridType === 'monsters') {
-      return renderMonstersGrid();
-    } else if (gridType === 'spells') {
-      return renderSpellsGrid(this.onSpellsRowClick.bind(this));
-    } else {
-      return null;
+  setRenderStateForGrid(gridType: string) {
+    if (gridType === 'Monsters') {
+      this.setState({
+        renderCharacter: false,
+        renderMonsters: true,
+        renderSpells: false,
+      });
+    } else if (gridType === 'Spells') {
+      this.setState({
+        renderCharacter: false,
+        renderMonsters: false,
+        renderSpells: true,
+      });
     }
   }
 
-  onCharacterButtonClick(name: string): void {
-    this.setState({
-      isModalOpen: true,
-      selectedCharacterName: name,
+  fetchCharacterData(uri: string) {
+    fetchDataFromUri(uri, (response) => {
+      const data: Object = response.data;
+      this.setState({
+        armorClass: data.armorClass,
+        attributes: data.attributes,
+        class: data.class,
+        equipment: data.equipment,
+        hitDice: data.hitDice,
+        languages: data.languages,
+        level: data.level,
+        maxHP: data.maxHP,
+        name: data.name,
+        proficiency: data.proficiency,
+        race: data.race,
+        renderCharacter: true,
+        renderMonsters: false,
+        renderSpells: false,
+        senses: data.senses,
+        speed: data.speed,
+        weapons: data.weapons,
+      });
     });
   }
 
-  renderCharacterButtons(buttonText: string) {
-    return [buttonText].map((name) => {
-      return renderCharacterButton(
-        name,
-        this.onCharacterButtonClick.bind(this, name),
-      );
+  getCharacterButtonModels() {
+    return ['Green Archer'].map((name) => {
+      return {
+        backgroundWidth: 160,
+        backgroundHeight: 160,
+        imageWidth: 80,
+        imageHeight: 128,
+        imageUri: 'http://vignette2.wikia.nocookie.net/nintendo/images/8/8c/Shinon.jpg/revision/latest?cb=20080624204842&path-prefix=en',
+        name: name,
+        onClick: this.fetchCharacterData.bind(this, '/api/greenArcher'),
+      };
+    });
+  }
+
+  getSpellAndMonsterButtonModels() {
+    return ['Monsters', 'Spells'].map((name) => {
+      const backgroundDimensions: Object = backgroundDimensionsForModel(name);
+      const imageDimensions: Object = imageDimensionsForModel(name);
+      return {
+        backgroundWidth: backgroundDimensions.width,
+        backgroundHeight: backgroundDimensions.height,
+        imageWidth: imageDimensions.width,
+        imageHeight: imageDimensions.height,
+        imageUri: imageUriForModel(name),
+        name: name,
+        onClick: this.setRenderStateForGrid.bind(this, name),
+      };
     });
   }
 
@@ -155,41 +260,52 @@ export default class DNDContainer extends React.Component {
         maxHeight: '80%',
         overflow: 'scroll',
       }
-    };
+    }
 
     return (
       <div>
         <Header />
-        <List
-          items={['Green Archer']}
-          componentBlock={this.renderCharacterButtons.bind(this)}
-          />
+
+        <Flexbox flexDirection='row' justifyContent='center'>
+          <Flexbox>
+            <CharacterButtons
+              characters={this.getCharacterButtonModels()}
+              />
+          </Flexbox>
+          <Flexbox>
+            <CharacterButtons
+              characters={this.getSpellAndMonsterButtonModels()}
+              />
+          </Flexbox>
+        </Flexbox>
 
         <br />
 
-        <List
-          items={['monsters', 'spells']}
-          componentBlock={this.renderGrid.bind(this)}
-          />
+        {this.state.renderMonsters ? renderMonstersGrid() : <div></div>}
 
         {
-          this.state.isModalOpen ?
+          this.state.renderSpells ?
+            renderSpellsGrid(this.onSpellsRowClick.bind(this)) :
+            <div></div>
+        }
+
+        {
+          this.state.renderCharacter ?
+            renderCharacter(this.state) :
+            <div></div>
+        }
+
+        <br />
+
+        {
+          this.state.isModalOpen && this.state.selectedSpell != null ?
           <Modal
             isOpen={this.state.isModalOpen}
             onRequestClose={this.closeModal.bind(this)}
             style={customStyles}
             contentLabel="Modal"
             >
-            {
-              this.state.selectedSpell != null ?
-                renderSpell(this.state.selectedSpell, this.closeModal.bind(this)) :
-                  <div></div>
-            }
-            {
-              this.state.selectedCharacterName != null ?
-                renderCharacterWithName(this.state.selectedCharacterName) :
-                <div></div>
-            }
+            {renderSpell(this.state.selectedSpell, this.closeModal.bind(this))}
           </Modal> :
           <div></div>
         }
