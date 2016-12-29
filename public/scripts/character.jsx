@@ -11,6 +11,7 @@ import {
 type CharacterProps = {
   armorClass: string,
   attributes: {},
+  cantrips: {},
   class: string,
   equipment: {},
   hitDice: string,
@@ -22,6 +23,7 @@ type CharacterProps = {
   race: string,
   senses: [],
   speed: string,
+  spells: {},
   weapons: {},
 };
 
@@ -63,6 +65,12 @@ export default function Character(props: CharacterProps) {
 
       <h3>Weapons</h3>
       <CharacterEquipment equipment={props.weapons} />
+
+      <h3>Cantrips</h3>
+      <CharacterEquipment equipment={props.cantrips} />
+
+      <h3>Spells</h3>
+      <CharacterEquipment equipment={props.spells} />
     </div>
   );
 };

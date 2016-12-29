@@ -30,6 +30,7 @@ function renderCharacter(character: Object) {
     <Character
       armorClass={character.armorClass}
       attributes={character.attributes}
+      cantrips={character.cantrips}
       class={character.class}
       equipment={character.equipment}
       hitDice={character.hitDice}
@@ -41,6 +42,7 @@ function renderCharacter(character: Object) {
       race={character.race}
       senses={character.senses}
       speed={character.speed}
+      spells={character.spells}
       weapons={character.weapons}
       />
   );
@@ -106,49 +108,19 @@ export default class DNDContainer extends React.Component {
   props: DNDContainerProps;
 
   state: {
-    armorClass: string,
-    attributes: {},
-    class: string,
-    equipment: {},
-    hitDice: string,
-    isModalOpen: boolean,
-    languages: [],
-    level: string,
-    maxHP: string,
-    name: string,
-    proficiency: string,
-    race: string,
-    renderCharacter: boolean,
+    character: ?Object,
     renderMonsters: boolean,
     renderSpells: boolean,
     selectedSpell: ?Object,
-    senses: [],
-    speed: string,
-    weapons: {},
   };
 
   constructor(props: DNDContainerProps): void {
     super(props);
     this.state = {
-      armorClass: '',
-      attributes: {},
-      class: '',
-      equipment: {},
-      hitDice: '',
-      isModalOpen: false,
-      languages: [],
-      level: '',
-      maxHP: '',
-      name: null,
-      proficiency: '',
-      race: '',
-      renderCharacter: false,
+      character: null,
       renderMonsters: false,
       renderSpells: true,
       selectedSpell: null,
-      senses: [],
-      speed: '',
-      weapons: {},
     };
   }
 
@@ -169,13 +141,13 @@ export default class DNDContainer extends React.Component {
   setRenderStateForGrid(gridType: string) {
     if (gridType === 'Monsters') {
       this.setState({
-        renderCharacter: false,
+        character: null,
         renderMonsters: true,
         renderSpells: false,
       });
     } else if (gridType === 'Spells') {
       this.setState({
-        renderCharacter: false,
+        character: null,
         renderMonsters: false,
         renderSpells: true,
       });
@@ -184,25 +156,11 @@ export default class DNDContainer extends React.Component {
 
   fetchCharacterData(uri: string) {
     fetchDataFromUri(uri, (response) => {
-      const data: Object = response.data;
+      const character: Object = response.data;
       this.setState({
-        armorClass: data.armorClass,
-        attributes: data.attributes,
-        class: data.class,
-        equipment: data.equipment,
-        hitDice: data.hitDice,
-        languages: data.languages,
-        level: data.level,
-        maxHP: data.maxHP,
-        name: data.name,
-        proficiency: data.proficiency,
-        race: data.race,
-        renderCharacter: true,
+        character: character,
         renderMonsters: false,
         renderSpells: false,
-        senses: data.senses,
-        speed: data.speed,
-        weapons: data.weapons,
       });
     });
   }
@@ -269,8 +227,8 @@ export default class DNDContainer extends React.Component {
                 <div></div>
             }
             {
-              this.state.renderCharacter ?
-                renderCharacter(this.state) :
+              this.state.character != null ?
+                renderCharacter(this.state.character) :
                 <div></div>
             }
           </Flexbox>
