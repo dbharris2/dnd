@@ -1,0 +1,107 @@
+{
+  "name": "",
+  "race": "",
+  "class": "",
+  "proficiency": "",
+  "level": "",
+  "armorClass": "",
+  "maxHP": "",
+  "hitDice": "",
+  "attributes": {
+    "strength": "",
+    "dexterity": "",
+    "constitution": "",
+    "intelligence": "",
+    "wisdom": "",
+    "charisma": ""
+  },
+  "speed": "",
+  "senses": [
+    "",
+    ""
+  ],
+  "languages": [
+    "",
+    "",
+    ""
+  ],
+  "equipment": {
+    "<name>": "<description>",
+    "Backpack": [
+      "<item-name>",
+      "<item-name>",
+      "<item-name>"
+    ],
+    "Money": ""
+  },
+  "weapons": [
+    {
+      "attack": "",
+      "damage": "",
+      "damage_type": "",
+      "description": "",
+      "imageUri": "",
+      "name": "",
+      "range": ""
+    },
+    {
+      "attack": "",
+      "damage": "",
+      "damage_type": "",
+      "description": "",
+      "imageUri": "",
+      "name": "",
+      "range": ""
+    },
+    {
+      "attack": "",
+      "damage": "",
+      "damage_type": "",
+      "description": "",
+      "imageUri": "",
+      "name": "",
+      "range": ""
+    }
+  ],
+  "cantrips": [
+    {
+      "name":"",
+      "desc":"",
+      "range":"",
+      "ritual":"",
+      "duration":"",
+      "concentration":"",
+      "casting_time":"",
+      "level":"Cantrip",
+      "imageUri": ""
+    }
+  ],
+  "spells": [
+    {
+      "name":"",
+      "desc":"",
+      "higher_level":"",
+      "range":"",
+      "components":"",
+      "ritual":"",
+      "duration":"",
+      "concentration":"",
+      "casting_time":"",
+      "level":"",
+      "imageUri": ""
+    },
+    {
+      "name":"",
+      "desc":"",
+      "higher_level":"",
+      "range":"",
+      "components":"",
+      "ritual":"",
+      "duration":"",
+      "concentration":"",
+      "casting_time":"",
+      "level":"",
+      "imageUri": ""
+    }
+  ]
+}
