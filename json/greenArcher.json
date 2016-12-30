@@ -51,6 +51,7 @@
       "damage": "1d8 + DEX + 0",
       "damage_type": "Poison",
       "description": "A long bow enchanted to deal poison damage",
+      "imageUri": "http://downloadicons.net/sites/default/files/sagittarius-icon-49796.png",
       "name": "Enchanted Longbow",
       "range": "150/600"
     },
@@ -59,6 +60,7 @@
       "damage": "1d8 + DEX + 1",
       "damage_type": "Magical",
       "description": "Sworn Enemy: When you become attuned to Justice you gain the “Sworn Enemy” feature. The target of your attack becomes your sworn enemy until it dies or until dawn 7 days later. You can only have 1 sworn enemy at a time. When your sworn enemy dies, you can choose a new one after the next dawn. You have advantage against all ranged attacks made with this weapon against your sworn enemy. Your sworn enemy gains no benefit from cover that is not full cover. You do not take disadvantage against your sworn enemy for long distance shots. When your attacks against your sworn enemy hit, deal an additional 2d6 piercing damage.",
+      "imageUri": "http://downloadicons.net/sites/default/files/sagittarius-icon-49785.png",
       "name": "Justice Longbow",
       "range": "150/600"
     },
@@ -67,6 +69,7 @@
       "damage": "1d6 + DEX + 0",
       "damage_type": "Slashing",
       "description": "A short sword",
+      "imageUri": "http://image.flaticon.com/icons/png/128/302/302132.png",
       "name": "Short Sword",
       "range": "Self"
     }
@@ -84,7 +87,8 @@
       "casting_time":"1 action",
       "level":"Cantrip",
       "school":"Conjuration",
-      "class":"Bard, Sorcerer, Warlock, Wizard"
+      "class":"Bard, Sorcerer, Warlock, Wizard",
+      "imageUri": "http://vignette2.wikia.nocookie.net/kirby/images/f/fa/KPR_Sticker_147.png/revision/latest?cb=20160608224700&path-prefix=en"
     }
   ],
   "spells": [
@@ -103,7 +107,8 @@
       "school":"Conjuration",
       "class":"Paladin, Ranger",
       "archetype":"Paladin: Ancients",
-      "oaths":"Ancients"
+      "oaths":"Ancients",
+      "imageUri": "http://icon-icons.com/icons2/390/PNG/128/crown-of-thorns_39255.png"
     },
     {
       "name":"Goodberry",
@@ -118,7 +123,8 @@
       "casting_time":"1 action",
       "level":"1st-level",
       "school":"Transmutation",
-      "class":"Druid, Ranger"
+      "class":"Druid, Ranger",
+      "imageUri": "https://cdn2.iconfinder.com/data/icons/shiny-fruits/100/grapes-3-128.png"
     },
     {
       "name":"Hail of Thorns",
@@ -133,7 +139,8 @@
       "casting_time":"1 bonus action",
       "level":"1st-level",
       "school":"Conjuration",
-      "class":"Ranger"
+      "class":"Ranger",
+      "imageUri": "http://icon-icons.com/icons2/390/PNG/128/crown-of-thorns_39255.png"
     },
     {
       "name":"Hunter's Mark",
@@ -150,7 +157,8 @@
       "school":"Divination",
       "class":"Paladin, Ranger",
       "archetype":"Paladin: Vengeance",
-      "oaths":"Vengeance"
+      "oaths":"Vengeance",
+      "imageUri": "https://cdn1.iconfinder.com/data/icons/flat-education-icons-1/512/8-128.png"
     },
     {
       "name":"Pass Without A Trace",
@@ -168,7 +176,8 @@
       "class":"Cleric, Druid, Ranger",
       "archetype":"Cleric: Trickery",
       "domains":"Trickery",
-      "circles":"Grassland"
+      "circles":"Grassland",
+      "imageUri": "https://cdn2.iconfinder.com/data/icons/ninja/500/Ninja_4-128.png"
     },
     {
       "name":"Silence",
@@ -184,7 +193,8 @@
       "school":"Illusion",
       "class":"Bard, Cleric, Druid, Ranger, Ritual Caster",
       "archetype":"Druid: Desert",
-      "circles":"Desert"
+      "circles":"Desert",
+      "imageUri": "https://cdn0.iconfinder.com/data/icons/forbidden-signs-black/512/mute_no_sound_quiet_silence_silent_sound_volume-128.png"
     },
     {
       "name":"Spike Growth",
@@ -202,7 +212,8 @@
       "class":"Cleric, Druid, Ranger",
       "archetype":"Cleric: Nature",
       "domains":"Nature",
-      "circles":"Arctic, Mountain"
+      "circles":"Arctic, Mountain",
+      "imageUri": "http://www.salem-wiki.com/mediawiki/images/c/c3/Thorn_Bush.png"
     }
   ]
 }

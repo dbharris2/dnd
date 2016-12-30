@@ -2,12 +2,14 @@
 
 import React from 'react';
 import Collapsible from 'react-collapsible';
+import Flexbox from 'flexbox-react';
 
 import CharacterWeapon from './character_weapon';
+import TitledIcon from './titled_icon';
 
-function label(text: string) {
+function titledWeapon(name: string, uri: string) {
   return (
-    <h4>{text}</h4>
+    <TitledIcon title={name} uri={uri} />
   );
 }
 
@@ -16,7 +18,10 @@ export default function CharacterWeapons(props: {
 }) {
   const characterWeapons: Object = props.weapons.map((weapon) => {
     return (
-      <Collapsible trigger={label(weapon.name)} open={true}>
+      <Collapsible
+        trigger={titledWeapon(weapon.name, weapon.imageUri)}
+        open={true}
+        >
         <CharacterWeapon
           attack={weapon.attack}
           damage={weapon.damage}

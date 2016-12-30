@@ -4,10 +4,11 @@ import React from 'react';
 import Collapsible from 'react-collapsible';
 
 import CharacterSpell from './character_spell';
+import TitledIcon from './titled_icon';
 
-function label(text: string) {
+function titledSpell(name: string, uri: string) {
   return (
-    <h4>{text}</h4>
+    <TitledIcon title={name} uri={uri} />
   );
 }
 
@@ -16,7 +17,10 @@ export default function CharacterSpells(props: {
 }) {
   const characterSpells: Object = props.spells.map((spell) => {
     return (
-      <Collapsible trigger={label(spell.name)} open={true}>
+      <Collapsible
+        trigger={titledSpell(spell.name, spell.imageUri)}
+        open={true}
+        >
         <CharacterSpell
           castingTime={spell.casting_time}
           description={spell.desc}
