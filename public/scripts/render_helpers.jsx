@@ -1,4 +1,5 @@
 import React from 'react';
+import Flexbox from 'flexbox-react';
 
 /* Private API */
 
@@ -56,6 +57,22 @@ function renderDictionaryWithTitle(dictionary: Object, title: ?string) {
 
 /* Public API */
 
+export function horizontalElement(title: string, description: string) {
+  const style: Object = {
+    marginRight: '5px',
+  };
+  return (
+    <Flexbox>
+      <Flexbox style={style}>
+        <b>{title}</b>
+      </Flexbox>
+      <Flexbox>
+        {description}
+      </Flexbox>
+    </Flexbox>
+  );
+}
+
 export function renderEntry(title: string, description: string) {
   return renderEntryWithLevelsDeep(title, description, 0);
 }
@@ -70,4 +87,20 @@ export function renderArrayWithTitle(array: array, title: string) {
 
 export function renderDictionary(dictionary: Object) {
   return renderDictionaryWithTitle(dictionary, null)
+}
+
+export function verticalElement(title: string, description: string) {
+  const style: Object = {
+    paddingTop: '10px',
+  };
+  return (
+    <Flexbox flexDirection='column' style={style}>
+      <Flexbox>
+        <b>{title}</b>
+      </Flexbox>
+      <Flexbox>
+        {description}
+      </Flexbox>
+    </Flexbox>
+  );
 }

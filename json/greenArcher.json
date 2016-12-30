@@ -45,29 +45,32 @@
       "Description": "This is crocodile skin armor that imbues you with reflexes of a crocodile. You can strike quickly and accurately when ambushing prey."
     }
   },
-  "weapons": {
-    "Enchanted Longbow": {
+  "weapons": [
+    {
       "attack": "DEX + 2 + Proficiency",
       "damage": "1d8 + DEX + 0",
-      "damage type": "poison",
+      "damage_type": "Poison",
       "description": "A long bow enchanted to deal poison damage",
+      "name": "Enchanted Longbow",
       "range": "150/600"
     },
-    "Justice Longbow": {
+    {
       "attack": "DEX + 3 + Proficiency",
       "damage": "1d8 + DEX + 1",
-      "damage type": "magical",
+      "damage_type": "Magical",
       "description": "Sworn Enemy: When you become attuned to Justice you gain the “Sworn Enemy” feature. The target of your attack becomes your sworn enemy until it dies or until dawn 7 days later. You can only have 1 sworn enemy at a time. When your sworn enemy dies, you can choose a new one after the next dawn. You have advantage against all ranged attacks made with this weapon against your sworn enemy. Your sworn enemy gains no benefit from cover that is not full cover. You do not take disadvantage against your sworn enemy for long distance shots. When your attacks against your sworn enemy hit, deal an additional 2d6 piercing damage.",
+      "name": "Justice Longbow",
       "range": "150/600"
     },
-    "Short Sword": {
+    {
       "attack": "DEX + 0 + Proficiency",
       "damage": "1d6 + DEX + 0",
-      "damage type": "slashing",
+      "damage_type": "Slashing",
       "description": "A short sword",
+      "name": "Short Sword",
       "range": "Self"
     }
-  },
+  ],
   "cantrips": [
     {
       "name":"Mage Hand",

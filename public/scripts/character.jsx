@@ -6,6 +6,7 @@ import Collapsible from 'react-collapsible';
 import CharacterAttributes from './character_attributes';
 import CharacterGeneral from './character_general';
 import CharacterSpells from './character_spells';
+import CharacterWeapons from './character_weapons';
 
 function label(text: string) {
   return (
@@ -35,9 +36,12 @@ type CharacterProps = {
 };
 
 export default function Character(props: CharacterProps) {
+  const style: Object = {
+    textAlign: 'center',
+  };
   return (
     <div>
-      <h3>{props.name}</h3>
+      <h2 style={style}>{props.name}</h2>
       <CharacterGeneral
         armorClass={props.armorClass}
         class={props.class}
@@ -58,7 +62,7 @@ export default function Character(props: CharacterProps) {
       </Collapsible>
       <br />
       <Collapsible trigger={label("Weapons")} open={true}>
-        <CharacterEquipment equipment={props.weapons} />
+        <CharacterWeapons weapons={props.weapons} />
       </Collapsible>
       <br />
       <Collapsible trigger={label("Cantrips")} open={true}>

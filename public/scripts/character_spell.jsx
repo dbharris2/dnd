@@ -3,37 +3,7 @@
 import React from 'react';
 import Flexbox from 'flexbox-react';
 
-function horizontalElement(title: string, description: string) {
-  const style: Object = {
-    marginRight: '5px',
-  };
-  return (
-    <Flexbox>
-      <Flexbox style={style}>
-        <b>{title}</b>
-      </Flexbox>
-      <Flexbox>
-        {description}
-      </Flexbox>
-    </Flexbox>
-  );
-}
-
-function verticalElement(title: string, description: string) {
-  const style: Object = {
-    paddingTop: '10px',
-  };
-  return (
-    <Flexbox flexDirection='column' style={style}>
-      <Flexbox>
-        <b>{title}</b>
-      </Flexbox>
-      <Flexbox>
-        {description}
-      </Flexbox>
-    </Flexbox>
-  );
-}
+import {horizontalElement, verticalElement} from './render_helpers.jsx';
 
 export default function CharacterSpell(props: {
   castingTime: string,
