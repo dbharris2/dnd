@@ -211,7 +211,7 @@ export default class DNDContainer extends React.Component {
         <Header />
 
         <Flexbox flexDirection='row' justifyContent='space-between'>
-          <Flexbox flexDirection='column' width='15%'>
+          <Flexbox flexDirection='column' width='20%'>
             <CharacterButtons
               characters={this.getCharacterButtonModels()}
               />
@@ -219,7 +219,10 @@ export default class DNDContainer extends React.Component {
               characters={this.getSpellAndMonsterButtonModels()}
               />
           </Flexbox>
-          <Flexbox width='85%'>
+          <Flexbox flexDirection='column' width='2%'>
+              <div></div>
+          </Flexbox>
+          <Flexbox width='78%'>
             {this.state.renderMonsters ? renderMonstersGrid() : <div></div>}
             {
               this.state.renderSpells ?
