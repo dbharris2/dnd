@@ -3,6 +3,8 @@
 import React from 'react';
 import Collapsible from 'react-collapsible';
 
+import CharacterSpells from './character_spells';
+
 function label(text: string) {
   return (
     <h3>{text}</h3>
@@ -75,11 +77,11 @@ export default function Character(props: CharacterProps) {
       </Collapsible>
       <br />
       <Collapsible trigger={label("Cantrips")} open={true}>
-        <CharacterEquipment equipment={props.cantrips} />
+        <CharacterSpells spells={props.cantrips} />
       </Collapsible>
       <br />
       <Collapsible trigger={label("Spells")} open={true}>
-        <CharacterEquipment equipment={props.spells} />
+        <CharacterSpells spells={props.spells} />
       </Collapsible>
     </div>
   );
