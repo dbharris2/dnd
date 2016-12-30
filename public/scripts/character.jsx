@@ -1,6 +1,13 @@
 /* @flow */
 
 import React from 'react';
+import Collapsible from 'react-collapsible';
+
+function label(text: string) {
+  return (
+    <h3>{text}</h3>
+  );
+}
 
 import CharacterEquipment from './character_equipment';
 import {
@@ -59,18 +66,21 @@ export default function Character(props: CharacterProps) {
       <h3>Attributes</h3>
       <CharacterEquipment equipment={props.attributes} />
       <br />
-
-      <h3>Equipment</h3>
-      <CharacterEquipment equipment={props.equipment} />
-
-      <h3>Weapons</h3>
-      <CharacterEquipment equipment={props.weapons} />
-
-      <h3>Cantrips</h3>
-      <CharacterEquipment equipment={props.cantrips} />
-
-      <h3>Spells</h3>
-      <CharacterEquipment equipment={props.spells} />
+      <Collapsible trigger={label("Equipment")} open={true}>
+        <CharacterEquipment equipment={props.equipment} />
+      </Collapsible>
+      <br />
+      <Collapsible trigger={label("Weapons")} open={true}>
+        <CharacterEquipment equipment={props.weapons} />
+      </Collapsible>
+      <br />
+      <Collapsible trigger={label("Cantrips")} open={true}>
+        <CharacterEquipment equipment={props.cantrips} />
+      </Collapsible>
+      <br />
+      <Collapsible trigger={label("Spells")} open={true}>
+        <CharacterEquipment equipment={props.spells} />
+      </Collapsible>
     </div>
   );
 };
