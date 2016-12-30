@@ -19,12 +19,12 @@
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "flexbox-react": "^4.1.0",
-    "griddle-react": "^0.6.1",
+    "griddle-react": "^0.7.1",
     "radium": "^0.18.1",
-    "react": "^15.3.1",
+    "react": "^15.4.1",
     "react-collapsible": "^1.2.0",
-    "react-dom": "^15.3.1",
-    "react-modal": "^1.4.0"
+    "react-dom": "^15.4.1",
+    "react-modal": "^1.6.4"
   },
   "devDependencies": {
     "babel-loader": "^6.2.5",
