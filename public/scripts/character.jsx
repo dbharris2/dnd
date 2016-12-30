@@ -3,6 +3,8 @@
 import React from 'react';
 import Collapsible from 'react-collapsible';
 
+import CharacterAttributes from './character_attributes';
+import CharacterGeneral from './character_general';
 import CharacterSpells from './character_spells';
 
 function label(text: string) {
@@ -12,10 +14,6 @@ function label(text: string) {
 }
 
 import CharacterEquipment from './character_equipment';
-import {
-  renderArrayWithTitle,
-  renderEntry,
-} from './render_helpers.jsx'
 
 type CharacterProps = {
   armorClass: string,
@@ -39,34 +37,21 @@ type CharacterProps = {
 export default function Character(props: CharacterProps) {
   return (
     <div>
-      <h3>General</h3>
-      {renderEntry('Name', props.name)}
-      {renderEntry('Race', props.race)}
-      {renderEntry('Class', props.class)}
+      <h3>{props.name}</h3>
+      <CharacterGeneral
+        armorClass={props.armorClass}
+        class={props.class}
+        hitDice={props.hitDice}
+        languages={props.languages}
+        level={props.level}
+        maxHP={props.maxHP}
+        proficiency={props.proficiency}
+        race={props.race}
+        senses={props.senses}
+        speed={props.speed}
+        />
       <br />
-
-      {renderEntry('Proficiency', props.proficiency)}
-      {renderEntry('Level', props.level)}
-      {renderEntry('Armor Class', props.armorClass)}
-      {renderEntry('Max HP', props.maxHP)}
-      {renderEntry('Hit Dice', props.hitDice)}
-      {renderEntry('Speed', props.speed)}
-      <br />
-
-      {
-        props.senses != null ?
-          renderArrayWithTitle(props.senses, 'Senses') :
-          <div></div>
-      }
-      {
-        props.languages != null ?
-          renderArrayWithTitle(props.languages, 'Languages') :
-          <div></div>
-      }
-      <br />
-
-      <h3>Attributes</h3>
-      <CharacterEquipment equipment={props.attributes} />
+      <CharacterAttributes attributes={props.attributes} />
       <br />
       <Collapsible trigger={label("Equipment")} open={true}>
         <CharacterEquipment equipment={props.equipment} />
