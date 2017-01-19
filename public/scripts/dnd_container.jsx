@@ -44,13 +44,12 @@ function renderCharacter(character: Object) {
   );
 }
 
-function renderMonstersGrid() {
+function renderMonstersGrid(monsters: Array) {
   return (
     <div key='/api/monsters'>
       <Grid
         columns={["name", "size", "type", "alignment"]}
-        dataType='json'
-        dataUrl='/api/monsters'
+        data={monsters}
         placeholderText='Search Monsters...'
         />
       <br />
@@ -58,13 +57,15 @@ function renderMonstersGrid() {
   );
 }
 
-function renderSpellsGrid(onRowClick: (gridRow: Object, event: Object) => void) {
+function renderSpellsGrid(
+  spells: Array,
+  onRowClick: (gridRow: Object, event: Object) => void,
+) {
   return (
     <div key='/api/spells'>
       <Grid
         columns={["name", "range", "components", "school"]}
-        dataType='json'
-        dataUrl='/api/spells'
+        data={spells}
         placeholderText='Search Spells...'
         onRowClick={onRowClick}
         />
@@ -142,9 +143,11 @@ export default class DNDContainer extends React.Component {
 
   state: {
     character: ?Object,
+    monsters: [],
     renderMonsters: boolean,
     renderSpells: boolean,
     selectedSpell: ?Object,
+    spells: [],
   };
 
   constructor(props: DNDContainerProps): void {
@@ -156,6 +159,11 @@ export default class DNDContainer extends React.Component {
       renderSpells: true,
       selectedSpell: null,
     };
+  }
+
+  componentDidMount(): void {
+    this.fetchMonsters();
+    this.fetchSpells();
   }
 
   closeModal(): void {
@@ -188,6 +196,18 @@ export default class DNDContainer extends React.Component {
         renderMonsters: false,
         renderSpells: false,
       });
+    });
+  }
+
+  fetchMonsters(): void {
+    fetchDataFromUri('/api/monsters', (response) => {
+      this.setState({monsters: response.data});
+    });
+  }
+
+  fetchSpells(): void {
+    fetchDataFromUri('/api/spells', (response) => {
+      this.setState({spells: response.data});
     });
   }
 
@@ -235,10 +255,17 @@ export default class DNDContainer extends React.Component {
               <div></div>
           </Flexbox>
           <Flexbox width='78%'>
-            {this.state.renderMonsters ? renderMonstersGrid() : <div></div>}
+            {
+              this.state.renderMonsters ?
+              renderMonstersGrid(this.state.monsters) :
+              <div></div>
+            }
             {
               this.state.renderSpells ?
-                renderSpellsGrid(this.onSpellsRowClick.bind(this)) :
+                renderSpellsGrid(
+                  this.state.spells,
+                  this.onSpellsRowClick.bind(this),
+                ) :
                 <div></div>
             }
             {
