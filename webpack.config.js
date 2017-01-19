@@ -10,9 +10,13 @@ var config = {
   entry: {
     app: APP_DIR + '/main.jsx',
     vendor: [
+      'axios',
+      'flexbox-react',
+      'griddle-react',
+      'material-ui',
       'react',
-      'react-dom',
-      'griddle-react'
+      'react-collapsible',
+      'react-dom'
     ]
   },
   output: {
