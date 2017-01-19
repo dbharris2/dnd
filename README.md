@@ -1,11 +1,11 @@
 # dnd
 
 ### How to run this?
-`yarn install` will install all dependencies.  `yarn run dev` will start a webpack watchman process that will create a new public/bin/bundle.js each time a file in public/scripts changes.  `yarn run build` will manually build a new public/bin/bundle.js each time its run.  Then `yarn start` will get the server going at localhost:3000.
+`yarn` will install all dependencies.  `yarn run dev` will start a webpack watchman process that will create a new public/bin/bundle.js each time a file in public/scripts changes.  `yarn run build` will manually build a new public/bin/bundle.js each time its run.  Then `yarn start` will get the server going at localhost:3000.
 
 *The actual commands:*
 ```
-yarn install
+yarn
 yarn run dev
 yarn start
 ```
