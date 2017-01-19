@@ -2,8 +2,10 @@
 
 import React from 'react';
 import Flexbox from 'flexbox-react';
-import Modal from 'react-modal';
+
 import Avatar from 'material-ui/Avatar';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 
@@ -14,7 +16,6 @@ import {
 import Character from './character';
 import Grid from './grid';
 import Header from './header';
-import Spell from './spell';
 
 import {
   fetchDataFromUri,
@@ -54,17 +55,6 @@ function renderMonstersGrid() {
         />
       <br />
     </div>
-  );
-}
-
-function renderSpell(spell: Object, onCloseButtonClick: () => void) {
-  return (
-    <Spell
-      closeButtonText='Got it!'
-      description={spell.desc}
-      name={spell.name}
-      onCloseButtonClick={onCloseButtonClick}
-      />
   );
 }
 
@@ -161,6 +151,7 @@ export default class DNDContainer extends React.Component {
     super(props);
     this.state = {
       character: null,
+      isModalOpen: false,
       renderMonsters: false,
       renderSpells: true,
       selectedSpell: null,
@@ -223,19 +214,13 @@ export default class DNDContainer extends React.Component {
   }
 
   render() {
-    const customStyles = {
-      content : {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        maxWidth: '800px',
-        maxHeight: '80%',
-        overflow: 'scroll',
-      }
-    }
+    const actions: Array = [
+      <FlatButton
+        label="OK"
+        primary={true}
+        onClick={this.closeModal.bind(this)}
+        />,
+    ];
 
     return (
       <div>
@@ -264,18 +249,23 @@ export default class DNDContainer extends React.Component {
           </Flexbox>
         </Flexbox>
 
-        {
-          this.state.isModalOpen && this.state.selectedSpell != null ?
-          <Modal
-            isOpen={this.state.isModalOpen}
-            onRequestClose={this.closeModal.bind(this)}
-            style={customStyles}
-            contentLabel="Modal"
-            >
-            {renderSpell(this.state.selectedSpell, this.closeModal.bind(this))}
-          </Modal> :
-          <div></div>
-        }
+        <Dialog
+          title={
+            this.state.selectedSpell != null ?
+            this.state.selectedSpell.name :
+            ''
+          }
+          actions={actions}
+          modal={false}
+          open={this.state.isModalOpen}
+          onRequestClose={this.closeModal.bind(this)}
+          >
+          {
+            this.state.selectedSpell != null ?
+            this.state.selectedSpell.desc :
+            ''
+          }
+        </Dialog>
       </div>
     );
   }
