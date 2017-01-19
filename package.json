@@ -21,7 +21,6 @@
     "flexbox-react": "^4.1.0",
     "griddle-react": "^0.7.1",
     "material-ui": "^0.16.7",
-    "radium": "^0.18.1",
     "react": "^15.4.1",
     "react-collapsible": "^1.2.0",
     "react-dom": "^15.4.1"
