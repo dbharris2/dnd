@@ -3,27 +3,22 @@
 import React from 'react';
 import Flexbox from 'flexbox-react';
 import Modal from 'react-modal';
+import Avatar from 'material-ui/Avatar';
+import {List, ListItem} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
 
-import Button from './button';
+import {
+  transparent,
+} from 'material-ui/styles/colors';
+
 import Character from './character';
-import CharacterButtons from './character_buttons';
 import Grid from './grid';
 import Header from './header';
-import List from './list';
 import Spell from './spell';
 
 import {
   fetchDataFromUri,
 } from './network_request_helpers.jsx';
-
-function greenArcher() {
-  return (
-    <Character
-      dataType='json'
-      dataUrl='/api/greenArcher'
-      />
-  );
-}
 
 function renderCharacter(character: Object) {
   return (
@@ -98,8 +93,56 @@ function imageUriForModel(model: string): string {
   }
 }
 
-function imageDimensionsForModel(model: string): string {
-  return {width: 32, height: 32};
+function avatarForModel(model: string) {
+  return (
+    <Avatar
+      src={imageUriForModel(model)}
+      backgroundColor={transparent}
+      />
+  );
+}
+
+function listItemForModel(model: string, onClick: () => void) {
+  return (
+    <ListItem
+      key={model}
+      leftAvatar={avatarForModel(model)}
+      primaryText={model}
+      onClick={onClick}
+      />
+  );
+}
+
+function renderCharacters(characters: Array) {
+  const characterElements: Object = characters.map((character) => {
+    return listItemForModel(character.name, character.onClick);
+  });
+  return (
+    <div>
+      <Subheader>
+        Characters
+      </Subheader>
+      <List>
+        {characterElements}
+      </List>
+    </div>
+  );
+}
+
+function renderResources(resources: Array) {
+  const resourceElements: Object = resources.map((resource) => {
+    return listItemForModel(resource.name, resource.onClick);
+  });
+  return (
+    <div>
+      <Subheader>
+        Resources
+      </Subheader>
+      <List>
+        {resourceElements}
+      </List>
+    </div>
+  );
 }
 
 type DNDContainerProps = {};
@@ -139,19 +182,11 @@ export default class DNDContainer extends React.Component {
   }
 
   setRenderStateForGrid(gridType: string) {
-    if (gridType === 'Monsters') {
-      this.setState({
-        character: null,
-        renderMonsters: true,
-        renderSpells: false,
-      });
-    } else if (gridType === 'Spells') {
-      this.setState({
-        character: null,
-        renderMonsters: false,
-        renderSpells: true,
-      });
-    }
+    this.setState({
+      character: null,
+      renderMonsters: gridType === 'Monsters',
+      renderSpells: gridType === 'Spells',
+    });
   }
 
   fetchCharacterData(uri: string) {
@@ -165,30 +200,26 @@ export default class DNDContainer extends React.Component {
     });
   }
 
-  getCharacterButtonModels() {
-    return ['Green Archer'].map((name) => {
-      const imageDimensions: Object = imageDimensionsForModel(name);
-      return {
-        imageWidth: imageDimensions.width,
-        imageHeight: imageDimensions.height,
-        imageUri: imageUriForModel(name),
-        name: name,
+  getCharacters() {
+    return [
+      {
+        name: 'Green Archer',
         onClick: this.fetchCharacterData.bind(this, '/api/greenArcher'),
-      };
-    });
+      },
+    ];
   }
 
-  getSpellAndMonsterButtonModels() {
-    return ['Monsters', 'Spells'].map((name) => {
-      const imageDimensions: Object = imageDimensionsForModel(name);
-      return {
-        imageWidth: imageDimensions.width,
-        imageHeight: imageDimensions.height,
-        imageUri: imageUriForModel(name),
-        name: name,
-        onClick: this.setRenderStateForGrid.bind(this, name),
-      };
-    });
+  getResources() {
+    return [
+      {
+        name: 'Monsters',
+        onClick: this.setRenderStateForGrid.bind(this, 'Monsters'),
+      },
+      {
+        name: 'Spells',
+        onClick: this.setRenderStateForGrid.bind(this, 'Spells'),
+      },
+    ];
   }
 
   render() {
@@ -212,12 +243,8 @@ export default class DNDContainer extends React.Component {
 
         <Flexbox flexDirection='row' justifyContent='space-between'>
           <Flexbox flexDirection='column' width='20%'>
-            <CharacterButtons
-              characters={this.getCharacterButtonModels()}
-              />
-            <CharacterButtons
-              characters={this.getSpellAndMonsterButtonModels()}
-              />
+            {renderCharacters(this.getCharacters())}
+            {renderResources(this.getResources())}
           </Flexbox>
           <Flexbox flexDirection='column' width='2%'>
               <div></div>
