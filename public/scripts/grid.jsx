@@ -43,7 +43,8 @@ export default class Grid extends React.Component {
       <Griddle
         results={this.state.data}
         enableInfiniteScroll={true}
-        bodyHeight={400}
+        bodyHeight={500}
+        paddingHeight={10}
         useFixedHeader={true}
         columns={this.props.columns}
         showSettings={true}
