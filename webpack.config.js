@@ -1,14 +1,16 @@
 var path = require('path');
 var webpack = require('webpack');
 
-var APP_DIR = path.resolve(__dirname, 'public/scripts');
+var JSX_DIR = path.resolve(__dirname, 'jsx');
+var APP_ENTRY = JSX_DIR + '/main.jsx';
 var BUILD_DIR = path.resolve(__dirname, 'public/bin');
+var NODE_MODULES_DIR = path.resolve(__dirname, './node_modules');
 
 var config = {
   cache: true,
   devtool: "eval",
   entry: {
-    app: APP_DIR + '/main.jsx',
+    app: APP_ENTRY,
     vendor: [
       'axios',
       'flexbox-react',
@@ -27,11 +29,11 @@ var config = {
     loaders : [
       {
         test : /\.jsx?/,
-        include : APP_DIR,
         loader : 'babel',
         query: {
           cacheDirectory: true,
-        }
+        },
+        exclude: [NODE_MODULES_DIR]
       }
     ]
   },
@@ -42,8 +44,8 @@ var config = {
   ],
   resolve: {
     extensions: ['', '.js', '.jsx'],
-    root: APP_DIR,
-    modulesDirectories: ['node_modules']
+    root: JSX_DIR,
+    modulesDirectories: [NODE_MODULES_DIR]
   }
 };
 
